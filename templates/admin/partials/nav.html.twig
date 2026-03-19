@@ -1,0 +1,41 @@
+<nav style="
+    background:#343a40;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+">
+
+    <!-- LOGO / TITRE -->
+    <div style="font-size:20px;font-weight:bold;">
+        SchoolPrepar Admin
+    </div>
+
+    <!-- MENU -->
+    <div style="display:flex;gap:20px;align-items:center;">
+
+        <a href="{{ path('admin_dashboard') }}" style="color:white;text-decoration:none;">
+            Dashboard
+        </a>
+
+        <a href="{{ path('admin_filiere') }}" style="color:white;text-decoration:none;">
+            Filières
+        </a>
+
+        <a href="{{ path('admin_etablissement') }}" style="color:white;text-decoration:none;">
+            Établissements
+        </a>
+
+    </div>
+
+    <!-- UTILISATEUR -->
+    <div>
+        <span style="margin-right:10px;">Admin</span>
+
+        <a href="#" style="color:#ffc107;text-decoration:none;">
+            Déconnexion
+        </a>
+    </div>
+
+</nav>

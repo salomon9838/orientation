@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Mentors - SchoolPrepar{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Accompagnement & Mentorat </h1>
+        <p class="text-muted">Échangez avec des experts pour éclairer votre parcours.</p>
+    </div>
+
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-6">
+            <form class="d-flex shadow-sm">
+                <input class="form-control me-2" type="search" placeholder="Rechercher une expertise (ex: Ingénierie)..." aria-label="Search">
+                <button class="btn btn-primary" type="submit">Filtrer</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for mentor in mentors %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <img src="{{ mentor.photo ?? 'https://via.placeholder.com/100' }}" class="rounded-circle mb-3 border border-3 border-light shadow-sm" width="100" height="100" alt="Avatar">
+                    <h5 class="card-title fw-bold mb-0">{{ mentor.nom }}</h5>
+                    <small class="text-primary fw-bold text-uppercase">{{ mentor.type }}</small> <p class="card-text mt-3 text-muted small">
+                        <strong>Expertise :</strong> {{ mentor.expertise }} 
+                    </p>
+                    
+                    <div class="mb-3 text-warning">
+                        {% for i in 1..5 %}
+                            <i class="bi bi-star{{ i <= mentor.note ? '-fill' : '' }}"></i>
+                        {% endfor %}
+                        <span class="text-muted small">({{ mentor.feedbackCount }} avis) </span>
+                    </div>
+
+                  
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

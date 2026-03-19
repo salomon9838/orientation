@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Prendre un Rendez-vous</h1>
+
+<form method="post">
+
+<div class="mb-3">
+<label>Nom étudiant</label>
+<input type="text" name="etudiant" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Mentor</label>
+<input type="text" name="mentor" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Date</label>
+<input type="datetime-local" name="date" class="form-control" required>
+</div>
+
+<button class="btn btn-success">
+Enregistrer
+</button>
+
+</form>
+
+{% endblock %}

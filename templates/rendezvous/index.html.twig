@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Liste des Rendez-vous</h1>
+
+<a href="/rendezvous/new" class="btn btn-primary mb-3">
+Prendre un rendez-vous
+</a>
+
+<table class="table">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Etudiant</th>
+<th>Mentor</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for r in rendezvous %}
+
+<tr>
+<td>{{ r.id }}</td>
+<td>{{ r.etudiant }}</td>
+<td>{{ r.mentor }}</td>
+<td>{{ r.date|date('d/m/Y H:i') }}</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}
