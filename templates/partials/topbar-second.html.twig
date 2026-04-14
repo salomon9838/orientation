@@ -1,0 +1,166 @@
+{# templates/admin/notifications_and_search.html.twig #}
+
+<div class="tab-content" id="pills-tabContent">
+    {# Onglet Toutes les Notifications #}
+    <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+        <div data-simplebar="" style="height: 800px">
+            <div class="list-group list-group-flush">
+                
+                {# Rappel Conseil de classe / Réunion #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-4 align-items-center">
+                            <div class="icon-shape icon-md bg-info-subtle text-info-emphasis rounded-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-calendar-week">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                                    <path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" />
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div>Rappel : Conseil des professeurs à 15h00.</div>
+                                <small class="text-secondary">Il y a 1 heure</small>
+                            </div>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-circle text-info">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                {# Nouvelle Inscription / Dossier #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-4 align-items-center">
+                            <div class="icon-shape icon-md bg-danger-subtle text-danger-emphasis rounded-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-user-plus">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                    <path d="M16 11h6m-3 -3v6" />
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div>Un nouveau dossier d'inscription a été soumis !</div>
+                                <small class="text-secondary">Il y a 2 heures</small>
+                            </div>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-circle text-info">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {# Onglet Suivi des Activités #}
+    <div class="tab-pane fade" id="pills-following" role="tabpanel" aria-labelledby="pills-following-tab" tabindex="0">
+        <div data-simplebar="" style="height: 800px">
+            <div class="list-group list-group-flush">
+                
+                {# Commentaire Enseignant #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-4 align-items-center">
+                            <img src="{{ asset('assets/images/avatar/avatar-3.jpg') }}" alt="" class="avatar avatar-md rounded-circle" />
+                            <div class="d-flex flex-column gap-1">
+                                <div>Mme Sophia a validé les notes de sa classe.</div>
+                                <small class="text-secondary">Il y a 20 minutes</small>
+                            </div>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-circle text-info">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                {# Mise à jour Système Scolaire #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-4 align-items-center">
+                            <div class="icon-shape icon-md bg-primary-subtle text-primary-emphasis rounded-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-settings">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                                    <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column gap-1">
+                                <div>Mise à jour du calendrier scolaire installée.</div>
+                                <small class="text-secondary">Il y a 30 minutes</small>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {# Onglet Archives / Messages #}
+    <div class="tab-pane fade" id="pills-archive" role="tabpanel" aria-labelledby="pills-archive-tab" tabindex="0">
+        <div data-simplebar="" style="height: 800px">
+            <div class="list-group list-group-flush">
+                {# Message Parent #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column gap-1">
+                            <div>Nouveau message du parent d'élève : Jean Dupont</div>
+                            <small class="text-secondary">Il y a 2 minutes</small>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icon-tabler-circle text-info">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 3.34a10 10 0 1 1 -4.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 4.995 -8.336z" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                
+                {# Demande d'accès #}
+                <a href="#" class="list-group-item list-group-item-action p-5 border-dashed border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-4 align-items-center">
+                            <img src="{{ asset('assets/images/avatar/avatar-2.jpg') }}" alt="" class="avatar avatar-md rounded-circle" />
+                            <div class="d-flex flex-column gap-1">
+                                <div>M. Michel sollicite un accès au module de paie.</div>
+                                <small class="text-secondary">Il y a 5 minutes</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center mt-4">
+                        <button type="button" class="btn btn-primary btn-sm">Accepter</button>
+                        <button type="button" class="btn btn-white btn-sm">Refuser</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Bouton Voir Tout #}
+<div class="px-5 py-3 text-center bg-white position-absolute bottom-0 border-top border-dashed w-100 text-center">
+    <a href="#!" class="text-inherit">Voir toutes les notifications</a>
+</div>
+
+{# Modal de recherche #}
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <input type="search" class="form-control border-0 rounded-0 ps-0 form-focus-none" id="globalSearchInput"
+                       placeholder="Rechercher un élève, un prof ou une classe..." aria-label="Recherche" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-white btn-sm" data-bs-dismiss="modal" aria-label="Fermer">Esc</button>
+            </div>
+        </div>
+    </div>
+</div>

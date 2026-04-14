@@ -1,0 +1,57 @@
+/* ==================== STYLES GÉNÉRAUX ==================== */
+body {
+    background-color: #f5f6fa;
+}
+
+/* Contenu principal (décalage à cause du sidebar fixe) */
+.main-content {
+    margin-left: 250px;
+}
+
+/* ==================== NAVBAR (SIDEBAR) ==================== */
+.navbar-vertical {
+    background-color: #212529;
+}
+
+.navbar-vertical .nav-link {
+    color: #ffffff !important;           /* Texte blanc */
+    transition: all 0.3s ease;
+}
+
+.navbar-vertical .nav-link:hover {
+    background-color: rgba(177, 17, 17, 0.1);
+    color: #ffffff !important;           /* Garde le texte blanc au survol */
+}
+
+.navbar-vertical .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.navbar-vertical .text-muted,
+.navbar-vertical .nav-heading {
+    color: #adb5bd !important;           /* Texte secondaire plus clair */
+}
+
+/* Texte du logo et titres */
+.navbar-vertical .text-white,
+.navbar-vertical h4,
+.navbar-vertical h6 {
+    color: #ffffff !important;
+}
+
+/* ==================== TOPBAR (si vous en avez une) ==================== */
+nav.navbar {
+    background-color: #343a40;
+}
+
+nav.navbar .nav-link,
+nav.navbar .navbar-brand,
+nav.navbar span {
+    color: #ffffff !important;
+}
+
+nav.navbar .nav-link:hover {
+    color: #ffc107 !important;   /* Jaune au survol (optionnel) */
+}

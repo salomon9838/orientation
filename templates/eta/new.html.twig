@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Etablissement{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-success">➕ Ajouter un établissement</h2>
+
+        <a href="{{ path('app_etablissements_index') }}" class="btn btn-secondary btn-sm">
+            ⬅ Retour à la liste
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+
+            <h5 class="mb-3 text-muted">📝 Formulaire de création</h5>
+
+            {{ include('eta/_form.html.twig') }}
+
+            <div class="mt-4">
+                <a href="{{ path('app_etablissements_index') }}" class="btn btn-outline-secondary">
+                    ⬅ Retour
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

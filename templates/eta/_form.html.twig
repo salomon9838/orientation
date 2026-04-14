@@ -1,0 +1,44 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+<div class="row g-3">
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Nom</label>
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de l’établissement'}}) }}
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Adresse</label>
+        {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Ville</label>
+        {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville'}}) }}
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Téléphone</label>
+        {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de téléphone'}}) }}
+    </div>
+
+    <div class="col-md-12">
+        <label class="form-label fw-semibold">Email</label>
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+    </div>
+
+</div>
+
+<div class="mt-4 d-flex justify-content-between">
+
+    <a href="{{ path('app_etablissements_index') }}" class="btn btn-outline-secondary">
+        ⬅ Retour
+    </a>
+
+    <button class="btn btn-success px-4">
+        💾 {{ button_label|default('Enregistrer') }}
+    </button>
+
+</div>
+
+{{ form_end(form) }}

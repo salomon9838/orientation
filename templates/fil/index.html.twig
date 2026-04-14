@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Filiere index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <h1 class="text-center fw-bold mb-4"> Liste des Filieres</h1>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle text-center">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>CreatedAt</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for filiere in filieres %}
+                        <tr>
+                            <td>{{ filiere.id }}</td>
+                            <td class="fw-semibold">{{ filiere.nom }}</td>
+                            <td>{{ filiere.description }}</td>
+                           <td>{{ filiere.createdAt|date('d/m/Y') }}</td>
+                            <td>
+                                <a href="{{ path('app_filieres_show', {'id': filiere.id}) }}" class="btn btn-sm btn-outline-primary me-1">
+                                    Voir
+                                </a>
+                                <a href="{{ path('app_filieres_edit', {'id': filiere.id}) }}" class="btn btn-sm btn-outline-warning">
+                                    Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-muted">Aucun enregistrement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <a href="{{ path('app_filieres_new') }}" class="btn btn-success">
+                    + Créer une filière
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

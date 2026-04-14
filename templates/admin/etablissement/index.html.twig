@@ -1,81 +1,90 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Gestion des établissements{% endblock %}
+{% block title %}Gestion des Établissements{% endblock %}
 
 {% block body %}
-
-<div style="padding:30px;">
+<div class="container-fluid">
 
     <!-- HEADER -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <h2>Gestion des établissements</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Gestion des Établissements</h3>
 
-        <a href="#" style="background:#28a745;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;">
+        <a href="{{ path('etablissement_index') }}" class="btn btn-success">
             + Ajouter un établissement
         </a>
     </div>
 
     <!-- MESSAGE FLASH -->
     {% for message in app.flashes('success') %}
-        <div style="background:#d4edda;color:#155724;padding:10px;margin-bottom:15px;border-radius:5px;">
+        <div class="alert alert-success">
             {{ message }}
         </div>
     {% endfor %}
 
-    <!-- TABLEAU -->
-    <div style="background:white;padding:20px;border-radius:10px;box-shadow:0px 0px 10px rgba(0,0,0,0.1);">
-        
-        <table style="width:100%;border-collapse:collapse;">
-            <thead style="background:#f8f9fa;">
-                <tr>
-                    <th style="padding:10px;border:1px solid #ddd;">ID</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Nom</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Ville</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Actions</th>
-                </tr>
-            </thead>
+    <!-- TABLE -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
 
-            <tbody>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
 
-                {# Données simulées (remplaçables par base de données) #}
-                {% set etablissements = [
-                    {'id':1,'nom':'Université de Lomé','ville':'Lomé'},
-                    {'id':2,'nom':'ESGIS','ville':'Lomé'},
-                    {'id':3,'nom':'IAI Togo','ville':'Lomé'}
-                ] %}
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Ville</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
 
-                {% for etab in etablissements %}
-                    <tr>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ etab.id }}</td>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ etab.nom }}</td>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ etab.ville }}</td>
+                    <tbody>
 
-                        <td style="padding:10px;border:1px solid #ddd;">
+                    {% for etab in etablissements %}
+                        <tr>
+                            <td>{{ etab.id }}</td>
 
-                            <a href="#" style="color:blue;margin-right:10px;">Voir</a>
+                            <td>
+                                <strong>{{ etab.nom }}</strong>
+                            </td>
 
-                            <a href="#" style="color:orange;margin-right:10px;">Modifier</a>
+                            <td>{{ etab.ville }}</td>
 
-                            <a href="#" style="color:red;"
-                               onclick="return confirm('Voulez-vous supprimer cet établissement ?');">
-                                Supprimer
-                            </a>
+                            <td class="text-center">
 
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" style="text-align:center;padding:15px;">
-                            Aucun établissement trouvé
-                        </td>
-                    </tr>
-                {% endfor %}
+                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
+                                   class="btn btn-sm btn-outline-primary me-1">
+                                    Voir
+                                </a>
 
-            </tbody>
-        </table>
+                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
+                                   class="btn btn-sm btn-outline-warning me-1">
+                                    Modifier
+                                </a>
 
+                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Voulez-vous supprimer cet établissement ?')">
+                                    Supprimer
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted">
+                                Aucun établissement trouvé
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
     </div>
 
 </div>
-
 {% endblock %}

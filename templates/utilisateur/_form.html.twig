@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+
+    {% for field in form %}
+        <div class="mb-3">
+            {{ form_label(field, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+            
+            {{ form_widget(field, {
+                'attr': {
+                    'class': field.vars.block_prefixes[1] == 'choice' ? 'form-select' : 'form-control'
+                }
+            }) }}
+
+            {{ form_errors(field) }}
+        </div>
+    {% endfor %}
+
+    <div class="text-end mt-3">
+        <button class="btn btn-primary px-4">
+            {{ button_label|default('Save') }}
+        </button>
+    </div>
+
+{{ form_end(form) }}

@@ -1,0 +1,278 @@
+{# templates/dashboard/index.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    {% include "partials/head/head-meta.html.twig" %}
+    <title>SchoolManager - Tableau de Bord Administratif</title>
+    
+    <link rel="stylesheet" href="{{ asset('node_modules/swiper/swiper-bundle.min.css') }}" />
+    {% include "partials/head/head-links.html.twig" %}
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <div class="navbar-vertical navbar">
+            <div class="h-100" data-simplebar="">
+                <a class="navbar-brand" href="{{ path('admin_dashboard') }}">
+                    <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="SchoolManager Logo" />
+                </a>
+                
+                <ul class="navbar-nav flex-column" id="sideNavbar">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('admin_dashboard') }}">
+                            <span class="nav-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-layout-dashboard">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 4h6v8h-6z" /><path d="M4 16h6v4h-6z" /><path d="M14 12h6v8h-6z" /><path d="M14 4h6v4h-6z" />
+                                </svg>
+                            </span>
+                            <span class="text">Tableau de Bord</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="nav-heading">Gestion Scolaire</div>
+                        <hr class="mx-5 nav-line mb-1" />
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="nav-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /><path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                </svg>
+                            </span>
+                            <span class="text">Académique</span>
+                        </a>
+                        <ul class="dropdown-menu flex-column">
+                            <li class="nav-item"><a class="nav-link" href="#">Étudiants</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Enseignants</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Classes & Cours</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="nav-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-lock">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                                    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" /><path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                                </svg>
+                            </span>
+                            <span class="text">Sécurité</span>
+                        </a>
+                        <ul class="dropdown-menu flex-column">
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="text-center py-5 upgrade-ui">
+                            <div>
+                                <img src="{{ asset('assets/images/avatar/avatar-1.jpg') }}" alt="" class="avatar avatar-md rounded-circle">
+                                <div class="my-3">
+                                    <h5 class="mb-1 fs-6">Admin School</h5>
+                                    <span class="text-secondary">Gestionnaire Principal</span>
+                                </div>
+                                <a href="#!" class="btn btn-primary btn-sm">Mon Profil</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <main id="content" class="position-relative h-100">
+            {% include "partials/topbar-second.html.twig" %}
+            
+            <div class="custom-container">
+                <div class="row mb-6 g-6">
+                    <div class="col-xl-8 col-lg-6">
+                        <div class="bg-gradient-mixed p-8 py-10 rounded-3 p-lg-7 text-white">
+                            <h1 class="fs-3 text-white">👋 Bienvenue sur SchoolManager,</h1>
+                            <p class="mb-0">Gérez efficacement vos effectifs, suivez les performances académiques</p>
+                            <p>et supervisez les flux financiers de votre établissement en temps réel.</p>
+                            <a href="#!" class="btn btn-light mt-2">Générer Rapport IA</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4 col-lg-6">
+                        <div class="card card-lg">
+                            <div class="card-body">
+                                <div class="mb-4 position-relative py-2">
+                                    <h5 class="mb-1">Annonces & Rappels</h5>
+                                    <div class="swiper-navigation position-absolute top-50 end-10 me-4">
+                                        <div class="swiper-button-prev"></div>
+                                        <div class="swiper-button-next"></div>
+                                    </div>
+                                </div>
+                                <div class="swiper-container swiper" id="swiper-1">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <h4>Conseil de classe - Semestre 1</h4>
+                                            <p>Prévu pour le vendredi prochain à 14h. Pensez à clôturer les notes.</p>
+                                            <div class="mt-4">
+                                                <a href="#!" class="btn btn-outline-primary btn-sm">Voir l'agenda</a>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <h4>Maintenance du Serveur</h4>
+                                            <p>Le système sera indisponible dimanche de 02h à 04h du matin.</p>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-xl-3 row-cols-md-3 mb-6 g-6">
+                    <div class="col">
+                        <div class="card card-lg">
+                            <div class="card-body d-flex flex-column gap-8">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-shape icon-lg rounded-circle bg-primary-subtle text-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
+                                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                        </svg>
+                                    </div>
+                                    <div class="fw-semibold">Total Étudiants</div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="fs-3 fw-bold">1,245</div>
+                                    <div class="text-success small"><span>+5.2%</span> ↑</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-lg">
+                            <div class="card-body d-flex flex-column gap-8">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-shape icon-lg rounded-circle bg-success-subtle text-success">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-cash">
+                                            <path d="M7 10a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M21 12a9 9 0 1 1 -18 0a9 9 0 0 1 18 0z" /><path d="M14 9l-2 2l-2 -2" />
+                                        </svg>
+                                    </div>
+                                    <div class="fw-semibold">Frais Scolaires Perçus</div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="fs-3 fw-bold">45.000.000 F</div>
+                                    <div class="text-warning small">85% Payés</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-lg">
+                            <div class="card-body d-flex flex-column gap-8">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-shape icon-lg rounded-circle bg-info-subtle text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-school">
+                                            <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+                                        </svg>
+                                    </div>
+                                    <div class="fw-semibold">Taux de Réussite</div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="fs-3 fw-bold">78.4%</div>
+                                    <div class="text-danger small">2.1% ↓</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-6 mb-6">
+                    <div class="col-xl-8 col-12">
+                        <div class="card card-lg">
+                            <div class="card-body d-flex flex-column gap-5">
+                                <h5 class="mb-4">Flux de Trésorerie Mensuel</h5>
+                                <div class="bg-gray-100 p-3 rounded-3">
+                                    <ul class="nav nav-pills-white nav-fill" id="chartTabs" role="tablist">
+                                        <li class="nav-item">
+                                            <button class="nav-link active" id="income-tab" data-bs-toggle="pill" data-bs-target="#income-pane" type="button">Encaissements Scolarité</button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="nav-link" id="expense-tab" data-bs-toggle="pill" data-bs-target="#expense-pane" type="button">Dépenses Académiques</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="income-pane">
+                                        <div id="totalIncomeChart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-12">
+                        <div class="card card-lg">
+                            <div class="card-body">
+                                <h5 class="mb-6">Répartition par Niveau</h5>
+                                <div id="totalSale" class="d-flex justify-content-center"></div>
+                                <table class="table table-sm table-borderless mb-0 mt-5">
+                                    <tbody>
+                                        <tr><td>Primaire</td><td class="text-end">450 Élevés (36%)</td></tr>
+                                        <tr><td>Collège</td><td class="text-end">510 Élevés (41%)</td></tr>
+                                        <tr><td>Lycée</td><td class="text-end">285 Élevés (23%)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-6 mb-6">
+                    <div class="col-xl-8">
+                        <div class="card card-lg">
+                            <div class="card-header border-bottom-0"><h5>Dernières Inscriptions</h5></div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr><th>ID Étudiant</th><th>Nom Complet</th><th>Niveau</th><th>Statut Paiement</th><th>Actions</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>#SM-2026-005</td><td>Jean Dupont</td><td>Lycée (2nde)</td><td><span class="badge bg-success-subtle text-success">Réglé</span></td><td><a href="#" class="btn btn-light btn-sm">Dossier</a></td></tr>
+                                        <tr><td>#SM-2026-002</td><td>Marie Koné</td><td>Collège (4ème)</td><td><span class="badge bg-warning-subtle text-warning">Acompte</span></td><td><a href="#" class="btn btn-light btn-sm">Dossier</a></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-4">
+                        <div class="card card-lg">
+                            <div class="card-body">
+                                <h5 class="mb-6">Assiduité par Classe</h5>
+                                <div id="map-world" style="height: 250px; display:none;"></div> <div class="mt-4">
+                                    <p>Classe de Terminale S1: 98%</p>
+                                    <div class="progress" style="height: 6px"><div class="progress-bar bg-success w-100" style="width: 98%"></div></div>
+                                </div>
+                                <div class="mt-4">
+                                    <p>Classe de 3ème A: 82%</p>
+                                    <div class="progress" style="height: 6px"><div class="progress-bar bg-warning w-80" style="width: 82%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    {% include "partials/scripts.html.twig" %}
+    <script src="{{ asset('assets/js/vendors/sidebarnav.js') }}"></script>
+    <script src="{{ asset('node_modules/jsvectormap/dist/js/jsvectormap.min.js') }}"></script>
+    <script src="{{ asset('node_modules/apexcharts/dist/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/chart.js') }}"></script>
+    <script src="{{ asset('node_modules/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendors/swiper.js') }}"></script>
+</body>
+
+</html>

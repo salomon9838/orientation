@@ -10,6 +10,29 @@ class AdminEtablissementController extends AbstractController
     #[Route('/admin/etablissements', name: 'admin_etablissement')]
     public function index()
     {
-        return $this->render('admin/etablissement/index.html.twig');
+         $etablissements = [
+            [
+                'id' => 1,
+                'nom' => 'Université de Lomé',
+                'ville' => 'Lomé'
+            ],
+            [
+                'id' => 2,
+                'nom' => 'ESGIS',
+                'ville' => 'Lomé'
+            ],
+            [
+                'id' => 3,
+                'nom' => 'IAI Togo',
+                'ville' => 'Lomé'
+            ],
+        ];
+
+        return $this->render('admin/etablissement/index.html.twig', [
+            'etablissements' => $etablissements,
+        ]);
     }
 }
+
+    
+   

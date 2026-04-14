@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Utilisateur{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <div class="card shadow border-0 rounded-3">
+                <div class="card-body p-5">
+
+                    <h2 class="text-center fw-bold text-primary mb-4">
+                        Modifier l'utilisateur
+                    </h2>
+
+                    <div class="mb-4">
+                        {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+
+                        <a href="{{ path('app_utilisateur_index') }}" class="btn btn-outline-secondary">
+                            ← Retour
+                        </a>
+
+                        <div class="d-flex gap-2">
+                            {{ include('utilisateur/_delete_form.html.twig') }}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

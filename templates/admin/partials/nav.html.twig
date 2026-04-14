@@ -1,41 +1,110 @@
-<nav style="
-    background:#343a40;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:white;
-">
+{# templates/partials/topbar-second.html.twig #}
 
-    <!-- LOGO / TITRE -->
-    <div style="font-size:20px;font-weight:bold;">
-        SchoolPrepar Admin
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom px-4 py-3 shadow-sm" style="margin-left: 250px;">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <div class="navbar-brand d-flex align-items-center gap-2">
+            <span class="fs-4 fw-bold text-white">🎓 SchoolPrepar</span>
+            <span class="badge bg-primary">Admin</span>
+        </div>
+
+        <!-- Menu Central -->
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav mx-auto gap-4">
+
+                <!-- Dashboard (optionnel) -->
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ app.request.attributes.get('_route') == 'app_etablissements_index' ? 'active' : '' }}"
+                       href="{{ path('app_etablissements_index') }}">
+                        <i class="ri-dashboard-line me-1"></i> Dashboard
+                    </a>
+                </li>
+
+                <!-- Filières -->
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ app.request.attributes.get('_route') starts with 'app_filieres' ? 'active' : '' }}"
+                       href="{{ path('app_filieres_index') }}">
+                        <i class="ri-book-open-line me-1"></i> Filières
+                    </a>
+                </li>
+
+                <!-- Etablissements -->
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ app.request.attributes.get('_route') starts with 'app_etablissements' ? 'active' : '' }}"
+                       href="{{ path('app_etablissements_index') }}">
+                        <i class="ri-building-line me-1"></i> Établissements
+                    </a>
+                </li>
+
+                <!-- Evenements -->
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ app.request.attributes.get('_route') starts with 'app_evenement' ? 'active' : '' }}"
+                       href="{{ path('app_evenement_index') }}">
+                        <i class="ri-calendar-event-line me-1"></i> Événements
+                    </a>
+                </li>
+
+                <!-- Utilisateurs -->
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ app.request.attributes.get('_route') starts with 'app_utilisateur' ? 'active' : '' }}"
+                       href="{{ path('app_utilisateur_index') }}">
+                        <i class="ri-user-3-line me-1"></i> Utilisateurs
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- Ajouter rapide -->
+            <div class="dropdown">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                    + Ajouter
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{{ path('app_etablissements_new') }}">Etablissement</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_filieres_new') }}">Filière</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_evenement_new') }}">Événement</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_utilisateur_new') }}">Utilisateur</a></li>
+                </ul>
+            </div>
+
+            <!-- Recherche -->
+            <button class="btn btn-outline-light btn-sm">
+                <i class="ri-search-line"></i>
+            </button>
+
+            <!-- Notifications -->
+            <div class="position-relative">
+                <button class="btn btn-outline-light btn-sm position-relative">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        3
+                    </span>
+                </button>
+            </div>
+
+            <!-- Profil -->
+            <div class="d-flex align-items-center gap-2">
+                <div class="text-end">
+                    <div class="fw-semibold small text-white">Admin</div>
+                    <div class="text-muted small">Super Admin</div>
+                </div>
+                <img src="{{ asset('assets/images/avatar/avatar-1.jpg') }}" 
+                     alt="Admin" 
+                     class="rounded-circle border border-light"
+                     width="35" height="35">
+            </div>
+
+            <!-- Logout -->
+            <a href="{{ path('app_logout') }}" class="btn btn-outline-warning btn-sm">
+                <i class="ri-logout-box-line"></i>
+            </a>
+
+        </div>
+
     </div>
-
-    <!-- MENU -->
-    <div style="display:flex;gap:20px;align-items:center;">
-
-        <a href="{{ path('admin_dashboard') }}" style="color:white;text-decoration:none;">
-            Dashboard
-        </a>
-
-        <a href="{{ path('admin_filiere') }}" style="color:white;text-decoration:none;">
-            Filières
-        </a>
-
-        <a href="{{ path('admin_etablissement') }}" style="color:white;text-decoration:none;">
-            Établissements
-        </a>
-
-    </div>
-
-    <!-- UTILISATEUR -->
-    <div>
-        <span style="margin-right:10px;">Admin</span>
-
-        <a href="#" style="color:#ffc107;text-decoration:none;">
-            Déconnexion
-        </a>
-    </div>
-
 </nav>

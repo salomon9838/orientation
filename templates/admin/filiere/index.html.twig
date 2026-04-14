@@ -1,81 +1,86 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Gestion des filières{% endblock %}
+{% block title %}Gestion des Filières{% endblock %}
 
 {% block body %}
-
-<div style="padding:30px;">
+<div class="container-fluid">
 
     <!-- HEADER -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <h2>Gestion des filières</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Gestion des Filières</h3>
 
-        <a href="#" style="background:#007bff;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;">
+        <a href="{{ path('admin_filiere') }}" class="btn btn-primary">
             + Ajouter une filière
         </a>
     </div>
 
-    <!-- MESSAGE FLASH -->
-    {% for message in app.flashes('success') %}
-        <div style="background:#d4edda;color:#155724;padding:10px;margin-bottom:15px;border-radius:5px;">
-            {{ message }}
+    <!-- TABLE -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Niveau</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for filiere in filieres %}
+                        <tr>
+                            <td>{{ filiere.id }}</td>
+
+                            <td>
+                                <strong>{{ filiere.nom }}</strong>
+                            </td>
+
+                            <td>{{ filiere.description }}</td>
+
+                            <td>{{ filiere.niveau }}</td>
+
+                            <td class="text-center">
+
+                                <a href="{{ path('filiere_show', {'id': filiere.id}) }}"
+                                   class="btn btn-sm btn-outline-primary me-1">
+                                    Voir
+                                </a>
+
+                                <a href="{{ path('filiere_show', {'id': filiere.id}) }}"
+                                   class="btn btn-sm btn-outline-warning me-1">
+                                    Modifier
+                                </a>
+
+                                <a href="{{ path('filiere_show', {'id': filiere.id}) }}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Supprimer cette filière ?')">
+                                    Supprimer
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                Aucune filière trouvée
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
         </div>
-    {% endfor %}
-
-    <!-- TABLEAU -->
-    <div style="background:white;padding:20px;border-radius:10px;box-shadow:0px 0px 10px rgba(0,0,0,0.1);">
-        
-        <table style="width:100%;border-collapse:collapse;">
-            <thead style="background:#f8f9fa;">
-                <tr>
-                    <th style="padding:10px;border:1px solid #ddd;">ID</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Nom</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Description</th>
-                    <th style="padding:10px;border:1px solid #ddd;">Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                {# Données simulées (remplaçables par base de données) #}
-                {% set filieres = [
-                    {'id':1,'nom':'Informatique','description':'Développement logiciel et applications'},
-                    {'id':2,'nom':'Réseaux','description':'Administration réseaux et systèmes'},
-                    {'id':3,'nom':'Télécommunications','description':'Communication et technologies modernes'}
-                ] %}
-
-                {% for filiere in filieres %}
-                    <tr>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ filiere.id }}</td>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ filiere.nom }}</td>
-                        <td style="padding:10px;border:1px solid #ddd;">{{ filiere.description }}</td>
-
-                        <td style="padding:10px;border:1px solid #ddd;">
-
-                            <a href="#" style="color:blue;margin-right:10px;">Voir</a>
-
-                            <a href="#" style="color:orange;margin-right:10px;">Modifier</a>
-
-                            <a href="#" style="color:red;"
-                               onclick="return confirm('Voulez-vous supprimer cette filière ?');">
-                                Supprimer
-                            </a>
-
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" style="text-align:center;padding:15px;">
-                            Aucune filière trouvée
-                        </td>
-                    </tr>
-                {% endfor %}
-
-            </tbody>
-        </table>
-
     </div>
 
 </div>
-
 {% endblock %}

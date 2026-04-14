@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+
+<div class="row g-3">
+
+    <div class="col-md-12">
+        {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.nom) }}
+    </div>
+
+    <div class="col-md-12">
+        {{ form_label(form.description, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.createdAt, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.createdAt) }}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.etablissement, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.etablissement, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.etablissement) }}
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-between mt-4">
+
+    <a href="{{ path('app_filieres_index') }}" class="btn btn-outline-secondary">
+        ← Retour
+    </a>
+
+    <button class="btn btn-primary px-4">
+        {{ button_label|default('Save') }}
+    </button>
+
+</div>
+
+{{ form_end(form) }}

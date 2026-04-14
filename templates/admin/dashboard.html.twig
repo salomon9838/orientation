@@ -1,5 +1,185 @@
-{% extends 'admin/base.html.twig' %}
+{# templates/admin/dashboard/index.html.twig #}
+{% extends 'base.html.twig' %}
 
-{% block body %}
-<h1>Dashboard Admin</h1>
+{% block title %}Dashboard Schoolprepar{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <style>
+        .main-content {
+            margin-left: 250px;
+            margin-top: 70px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .dashboard-card {
+            border-radius: 20px;
+            height: 185px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        .sparkline { 
+            height: 68px !important; 
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="h1 fw-bold mb-5 text-dark">Dashboard Schoolprepar</h1>
+
+    <!-- 4 Cartes -->
+    <div class="row g-4 mb-5">
+
+        <!-- Carte 1 : Utilisateurs -->
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-5 d-flex flex-column">
+                <p class="opacity-75 mb-1">Utilisateurs</p>
+                <h2 class="display-5 fw-bold mb-3">26K</h2>
+                <div class="mt-auto">
+                    <canvas id="spark1" class="sparkline w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 2 : Événements -->
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card bg-gradient-to-br from-cyan-500 to-teal-400 text-white p-5 d-flex flex-column">
+                <p class="opacity-75 mb-1">Événements</p>
+                <h2 class="display-5 fw-bold mb-3">6 200</h2>
+                <div class="mt-auto">
+                    <canvas id="spark2" class="sparkline w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 3 : Filières -->
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card bg-gradient-to-br from-orange-500 to-amber-500 text-white p-5 d-flex flex-column">
+                <p class="opacity-75 mb-1">Filières</p>
+                <h2 class="display-5 fw-bold mb-3">2.49%</h2>
+                <div class="mt-auto">
+                    <canvas id="spark3" class="sparkline w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carte 4 : Établissements -->
+        <div class="col-xl-3 col-md-6">
+            <div class="dashboard-card bg-gradient-to-br from-red-500 to-rose-600 text-white p-5 d-flex flex-column">
+                <p class="opacity-75 mb-1">Établissements</p>
+                <h2 class="display-5 fw-bold mb-3">44K</h2>
+                <div class="mt-auto">
+                    <canvas id="spark4" class="sparkline w-100"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Section Activité -->
+    <div class="card shadow-sm p-5" style="background: #1e2937; color: white; border-radius: 20px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="h4 fw-bold">Activité</h3>
+                <p class="text-light opacity-75 mb-0">Janvier - Juillet 2023</p>
+            </div>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-light">Day</button>
+                <button class="btn btn-light active">Month</button>
+                <button class="btn btn-light">Year</button>
+            </div>
+        </div>
+        
+        <div style="height: 420px;">
+            <canvas id="mainChart"></canvas>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script>
+        // Initialisation des graphiques
+        function initSparklines() {
+            // Spark 1 - Utilisateurs
+            new Chart(document.getElementById('spark1'), {
+                type: 'line',
+                data: { labels: Array(7).fill(''), datasets: [{ data: [65,88,75,105,92,118,108], borderColor: '#fff', borderWidth: 3.5, tension: 0.4, pointRadius: 0 }] },
+                options: { plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            // Spark 2 - Événements
+            new Chart(document.getElementById('spark2'), {
+                type: 'line',
+                data: { labels: Array(7).fill(''), datasets: [{ data: [50,68,82,73,95,108,98], borderColor: '#fff', borderWidth: 3.5, tension: 0.4, pointRadius: 0 }] },
+                options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            // Spark 3 - Filières
+            new Chart(document.getElementById('spark3'), {
+                type: 'line',
+                data: { labels: Array(7).fill(''), datasets: [{ data: [32,45,40,58,52,70,65], borderColor: '#fff', borderWidth: 3.5, tension: 0.4, pointRadius: 0 }] },
+                options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+            });
+
+            // Spark 4 - Établissements (barres)
+            new Chart(document.getElementById('spark4'), {
+                type: 'bar',
+                data: { labels: Array(7).fill(''), datasets: [{ data: [48,60,72,55,78,63,70], backgroundColor: '#fff', borderRadius: 6, barThickness: 14 }] },
+                options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+            });
+        }
+
+        function initMainChart() {
+            new Chart(document.getElementById('mainChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil'],
+                    datasets: [
+                        {
+                            label: 'Utilisateurs',
+                            data: [115, 135, 172, 158, 175, 152, 165],
+                            borderColor: '#22d3ee',
+                            borderWidth: 5,
+                            tension: 0.35,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Événements',
+                            data: [125, 148, 165, 145, 168, 160, 170],
+                            borderColor: '#c084fc',
+                            borderWidth: 5,
+                            tension: 0.35,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                        y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', stepSize: 50 }, min: 90, max: 200 }
+                    }
+                }
+            });
+        }
+
+        // Lancement au chargement
+        window.onload = function() {
+            initSparklines();
+            initMainChart();
+        };
+    </script>
 {% endblock %}

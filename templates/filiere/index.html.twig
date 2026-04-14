@@ -1,101 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ filiere.nom }} - SchoolPrepar{% endblock %}
+{% block title %}Nos Filières - SchoolPrepar{% endblock %}
 
 {% block body %}
-<div class="container py-5">
-
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb small">
-           
-            <li class="breadcrumb-item active fw-semibold">{{ filiere.nom }}</li>
-        </ol>
-    </nav>
+<div class="container py-5 mt-5">
+    
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">Nos Filières</h1>
+        <p class="text-muted">Choisissez votre domaine d'étude parmi nos formations disponibles.</p>
+    </div>
 
     <div class="row g-4">
-
-        <!-- Colonne principale -->
-        <div class="col-lg-8">
-
-            <!-- Titre -->
-            <div class="mb-4">
-                <h1 class="fw-bold text-primary">{{ filiere.nom }}</h1>
-                <p class="text-muted fs-5">{{ filiere.description }}</p>
-            </div>
-
-            <!-- Conditions -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <h2 class="h5 fw-semibold mb-3 border-start border-4 border-primary ps-3">
-                        🎓 Conditions d'admission
-                    </h2>
-                    <p class="mb-0">{{ filiere.conditionsAdmission }}</p>
-                </div>
-            </div>
-
-            <!-- Débouchés -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h2 class="h5 fw-semibold mb-3 border-start border-4 border-success ps-3">
-                        💼 Débouchés professionnels
-                    </h2>
-
-                    <ul class="list-group list-group-flush">
-                        {% for debouche in filiere.debouches %}
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="me-2 text-success">✔</span>
-                                {{ debouche }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-
-            <!-- Écoles -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-primary text-white fw-semibold">
-                    🏫 Écoles correspondantes
-                </div>
-
-                <ul class="list-group list-group-flush">
-                    {% for ecole in filiere.ecoles %}
-                        <li class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span>{{ ecole.nom }}</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">
-                                    Voir
-                                </a>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <!-- Carte -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="fw-semibold mb-3">📍 Localisation</h5>
-
-                    <div class="ratio ratio-16x9 rounded overflow-hidden border">
-                        <!-- Exemple iframe Google Maps -->
-                        <iframe 
-                            src="https://maps.google.com/maps?q=lomé&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0"
-                            allowfullscreen>
-                        </iframe>
+        {% for filiere in filieres %}
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0 transition-hover">
+                    <div class="card-body">
+                        <h4 class="fw-bold text-dark mb-3">{{ filiere.nom }}</h4>
+                        <p class="text-muted small" style="text-align: justify;">
+                            {{ filiere.description|length > 100 ? filiere.description|slice(0, 100) ~ '...' : filiere.description }}
+                        </p>
                     </div>
-
+                    <div class="card-footer bg-white border-0 p-3">
+                        <a href="{{ path('filiere_show', {'id': filiere.id}) }}" class="btn btn-outline-primary w-100 fw-bold">
+                            Voir détails
+                        </a>
+                    </div>
                 </div>
             </div>
-
-        </div>
-
+        {% else %}
+            <div class="col-12 text-center">
+                <p class="text-muted">Aucune filière n'est actuellement disponible.</p>
+            </div>
+        {% endfor %}
     </div>
+
 </div>
 {% endblock %}

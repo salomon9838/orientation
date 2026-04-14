@@ -1,0 +1,193 @@
+{# templates/dashboard/index.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Schoolprepar</title>
+ 
+    {% include "partials/head/head-meta.html.twig" %}
+    {% include "partials/head/head-links.html.twig" %}
+ 
+    <link rel="stylesheet" href="{{ asset('node_modules/swiper/swiper-bundle.min.css') }}" />
+   
+    <style>
+        .app-wrapper { 
+            display: flex; 
+            min-height: 100vh; 
+        }
+        
+        /* SIDEBAR */
+        .navbar-vertical {
+            width: 260px;
+            background: #1a1b2e;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.3);
+        }
+
+        /* MAIN CONTENT */
+        main#content {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            background: #f8f9fc;
+            min-height: 100vh;
+        }
+
+        .custom-container {
+            padding: 40px 35px;
+        }
+
+        /* Cartes Légères comme sur l'image */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            height: 160px;
+            transition: 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .sparkline { height: 55px !important; }
+
+        .activity-card {
+            background: #1e2537;
+            border-radius: 18px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <div class="navbar-vertical navbar">
+        <div class="h-100" data-simplebar>
+            <div class="text-center py-5 border-bottom border-dark">
+                <h4 class="text-white fw-bold mb-0">SchoolPreparator</h4>
+            </div>
+            
+            <ul class="navbar-nav flex-column p-3">
+                <li class="nav-item">
+                    <a class="nav-link active bg-primary bg-opacity-10 text-white" href="#">
+                        <i class="ri-dashboard-line me-3"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mt-4"><div class="px-3 text-uppercase small text-muted">Gestion Scolaire</div></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ri-building-line me-3"></i> Établissements</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ri-book-open-line me-3"></i> Filières</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ri-user-line me-3"></i> Utilisateurs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ri-graduation-cap-line me-3"></i> Académique</a></li>
+                
+                <li class="nav-item mt-auto pt-4">
+                    <a href="{{ path('app_logout') }}" class="nav-link text-danger">
+                        <i class="ri-logout-box-line me-3"></i> Déconnexion
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mt-auto p-4 text-center">
+                <img src="{{ asset('assets/images/avatar/avatar-1.jpg') }}" class="rounded-circle mb-2" width="50" alt="">
+                <h6 class="text-white mb-0">Admin Principal</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CONTENU PRINCIPAL ==================== -->
+    <main id="content">
+        {% include "partials/topbar-second.html.twig" %}
+        
+        <div class="custom-container">
+            
+            <h1 class="display-5 fw-bold mb-5">Dashboard Schoolprepar</h1>
+
+            <!-- 4 Cartes Blanches -->
+            <div class="row g-4 mb-5">
+                <div class="col-xl-3 col-lg-6">
+                    <div class="stat-card p-4 text-center">
+                        <p class="text-muted mb-2">Utilisateurs</p>
+                        <h2 class="fw-bold text-dark">26K</h2>
+                        <canvas id="spark1" class="sparkline mt-3"></canvas>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="stat-card p-4 text-center">
+                        <p class="text-muted mb-2">Événements</p>
+                        <h2 class="fw-bold text-dark">6 200</h2>
+                        <canvas id="spark2" class="sparkline mt-3"></canvas>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="stat-card p-4 text-center">
+                        <p class="text-muted mb-2">Filières</p>
+                        <h2 class="fw-bold text-dark">2.49%</h2>
+                        <canvas id="spark3" class="sparkline mt-3"></canvas>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6">
+                    <div class="stat-card p-4 text-center">
+                        <p class="text-muted mb-2">Établissements</p>
+                        <h2 class="fw-bold text-dark">44K</h2>
+                        <canvas id="spark4" class="sparkline mt-3"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activité -->
+            <div class="activity-card p-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="fw-bold">Activité</h4>
+                        <p class="text-light opacity-75 mb-0">Janvier - Juillet 2023</p>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-light">Day</button>
+                        <button class="btn btn-light active">Month</button>
+                        <button class="btn btn-light">Year</button>
+                    </div>
+                </div>
+                <div style="height: 420px;">
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+{% include "partials/scripts.html.twig" %}
+
+<script src="{{ asset('node_modules/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendors/swiper.js') }}"></script>
+<script src="{{ asset('assets/js/vendors/chart.js') }}"></script>
+<script src="{{ asset('node_modules/apexcharts/dist/apexcharts.min.js') }}"></script>
+
+<script>
+    // Initialisation des graphiques
+    window.onload = function() {
+        // Sparklines
+        new Chart(document.getElementById('spark1'), { type: 'line', data: { labels: Array(7).fill(''), datasets: [{ data: [60,85,70,95,88,110,102], borderColor: '#6366f1', borderWidth: 3, tension: 0.4, pointRadius: 0 }] }, options: { plugins: {legend:{display:false}}, scales:{x:{display:false},y:{display:false}} }});
+        new Chart(document.getElementById('spark2'), { type: 'line', data: { labels: Array(7).fill(''), datasets: [{ data: [45,65,80,72,90,105,98], borderColor: '#14b8a6', borderWidth: 3, tension: 0.4, pointRadius: 0 }] }, options: { plugins: {legend:{display:false}}, scales:{x:{display:false},y:{display:false}} }});
+        new Chart(document.getElementById('spark3'), { type: 'line', data: { labels: Array(7).fill(''), datasets: [{ data: [30,42,38,55,50,68,72], borderColor: '#f59e0b', borderWidth: 3, tension: 0.4, pointRadius: 0 }] }, options: { plugins: {legend:{display:false}}, scales:{x:{display:false},y:{display:false}} }});
+        new Chart(document.getElementById('spark4'), { type: 'bar', data: { labels: Array(7).fill(''), datasets: [{ data: [50,62,75,58,80,65,70], backgroundColor: '#ef4444', borderRadius: 5, barThickness: 12 }] }, options: { plugins: {legend:{display:false}}, scales:{x:{display:false},y:{display:false}} }});
+
+        // Graphique principal
+        new Chart(document.getElementById('mainChart'), {
+            type: 'line',
+            data: {
+                labels: ['Jan','Fév','Mar','Avr','Mai','Juin','Juil'],
+                datasets: [
+                    { data: [110,130,175,160,172,155,168], borderColor: '#22d3ee', borderWidth: 4, tension: 0.4 },
+                    { data: [120,145,165,148,170,158,165], borderColor: '#a855f7', borderWidth: 4, tension: 0.4 }
+                ]
+            },
+            options: { maintainAspectRatio: false, plugins: { legend: { display: false } }}
+        });
+    };
+</script>
+</body>
+</html>
