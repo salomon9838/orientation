@@ -3,12 +3,12 @@
 {% block title %}{{ filiere.nom }} - SchoolPrepar{% endblock %}
 
 {% block body %}
-<div class="container py-5 mt-5">
+<div class="container py-5 mt-3">
 
     {# Fil d'Ariane #}
-    <nav aria-label="breadcrumb" class="mb-5">
+    <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb bg-light p-3 rounded shadow-sm">
-            <li class="breadcrumb-item"><a href="{{ path('home') }}" class="text-decoration-none">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}" class="text-decoration-none">Accueil</a></li>
             <li class="breadcrumb-item"><a href="{{ path('filieres') }}" class="text-decoration-none">Filières</a></li>
             <li class="breadcrumb-item active fw-bold" aria-current="page">{{ filiere.nom }}</li>
         </ol>
@@ -21,12 +21,12 @@
                 <h1 class="display-5 fw-bold text-primary mb-3">{{ filiere.nom }}</h1>
                 <hr class="w-25 border-primary border-3 opacity-100 mb-4">
                 <p class="lead text-secondary" style="text-align: justify;">
-                    {{ filiere.description|nl2br }}
+                    {{ filiere.description }}
                 </p>
             </div>
 
             {# Conditions d'admission #}
-            <div class="card border-0 shadow-sm mb-5">
+            <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-white py-3 border-bottom border-light">
                     <h2 class="h4 fw-bold mb-0 text-dark">🎓 Conditions d'admission</h2>
                 </div>
@@ -38,6 +38,7 @@
             </div>
 
             {# Débouchés #}
+            {% if filiere.debouches is defined %}
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white py-3 border-bottom border-light">
                     <h2 class="h4 fw-bold mb-0 text-success">💼 Débouchés professionnels</h2>
@@ -50,16 +51,18 @@
                                 <span class="fw-medium">{{ debouche }}</span>
                             </li>
                         {% else %}
-                            <li class="list-group-item text-muted italic">Aucun débouché renseigné pour le moment.</li>
+                            <li class="list-group-item text-muted">Aucun débouché renseigné pour le moment.</li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
+            {% endif %}
         </div>
 
         {# Colonne Latérale #}
         <div class="col-lg-4">
             {# Liste des écoles #}
+            {% if filiere.ecoles is defined %}
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-dark text-white fw-bold py-3 text-center">
                     🏫 Écoles proposant cette filière
@@ -68,34 +71,27 @@
                     {% for ecole in filiere.ecoles %}
                         <div class="list-group-item d-flex justify-content-between align-items-center p-3">
                             <span class="fw-semibold">{{ ecole.nom }}</span>
-                            {# Correction : Ajout d'une condition pour le lien #}
-                            {% if ecole.id is defined %}
-                                <a href="{{ path('filiere_show', {'id': ecole.id}) }}" class="btn btn-sm btn-outline-primary">Détails</a>
-                            {% else %}
-                                <span class="text-muted small">N/A</span>
-                            {% endif %}
                         </div>
                     {% else %}
                         <div class="list-group-item text-center text-muted">Aucune école trouvée.</div>
                     {% endfor %}
                 </div>
             </div>
-
-            {# Bloc Localisation #}
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3"><i class="fa fa-map-marker-alt text-danger me-2"></i>Localisation</h5>
-                    <div class="ratio ratio-16x9 rounded overflow-hidden border">
-                        <img src="{{ asset('assets/img/home-office.png') }}" class="img-fluid" alt="Localisation" style="object-fit: cover;">
-                    </div>
-                </div>
-            </div>
+            {% endif %}
 
             {# Appel à l'action #}
             <div class="mt-4 p-4 bg-primary text-white rounded shadow-sm text-center">
                 <h5 class="fw-bold">Besoin d'aide ?</h5>
                 <p class="small">Nos conseillers vous accompagnent dans votre choix d'orientation.</p>
-            
+                {% if not app.user %}
+                    <a href="{{ path('app_register') }}" class="btn btn-light btn-sm fw-bold">S'inscrire gratuitement</a>
+                {% endif %}
+            </div>
+
+            <div class="mt-3">
+                <a href="{{ path('filieres') }}" class="btn btn-outline-secondary w-100">
+                    ← Retour aux filières
+                </a>
             </div>
         </div>
     </div>

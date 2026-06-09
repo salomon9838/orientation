@@ -1,13 +1,103 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Accueil - SchoolPrepar{% endblock %}
+
 {% block body %}
 
-<h1>Bienvenue sur SchoolPrepar</h1>
+{# Hero Section #}
+<div class="hero-section" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0f766e 100%); min-height: 500px; display: flex; align-items: center; margin-top: -20px;">
+    <div class="container text-white text-center py-5">
+        <h1 class="display-3 fw-bold mb-3">
+            Bienvenue sur <span style="color: #93c5fd;">SchoolPrepar</span>
+        </h1>
+        <p class="lead fs-5 mb-4" style="max-width: 600px; margin: 0 auto 2rem;">
+            La plateforme d'orientation scolaire et professionnelle du Togo. Trouvez votre filière, découvrez les établissements partenaires et construisez votre avenir.
+        </p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{{ path('filieres') }}" class="btn btn-light btn-lg fw-bold px-4">
+                <i class="fa fa-graduation-cap me-2"></i> Explorer les filières
+            </a>
+            <a href="{{ path('etablissement_index') }}" class="btn btn-outline-light btn-lg px-4">
+                <i class="fa fa-university me-2"></i> Voir les établissements
+            </a>
+        </div>
+    </div>
+</div>
 
-<p>
-Plateforme d’orientation scolaire et professionnelle.
-</p>
+{# Stats Section #}
+<div class="container my-5">
+    <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm py-4">
+                <div class="card-body">
+                    <div class="fs-1 fw-bold text-primary mb-1">50+</div>
+                    <div class="text-muted">Filières disponibles</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm py-4">
+                <div class="card-body">
+                    <div class="fs-1 fw-bold text-success mb-1">20+</div>
+                    <div class="text-muted">Établissements partenaires</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm py-4">
+                <div class="card-body">
+                    <div class="fs-1 fw-bold text-warning mb-1">500+</div>
+                    <div class="text-muted">Étudiants orientés</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm py-4">
+                <div class="card-body">
+                    <div class="fs-1 fw-bold text-danger mb-1">100%</div>
+                    <div class="text-muted">Gratuit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a href="/filieres" class="btn btn-primary">Explorer les filières</a>
+{# Feature Cards #}
+<div class="container mb-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark">Nos services</h2>
+        <p class="text-muted">Tout ce dont vous avez besoin pour réussir votre orientation</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="fs-1 mb-3">🎓</div>
+                <h5 class="fw-bold">Choisir sa filière</h5>
+                <p class="text-muted">Explorez les domaines d'études adaptés à votre profil et vos ambitions professionnelles.</p>
+                <a href="{{ path('filieres') }}" class="btn btn-outline-primary mt-auto">Voir les filières</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="fs-1 mb-3">🏫</div>
+                <h5 class="fw-bold">Trouver un établissement</h5>
+                <p class="text-muted">Découvrez notre réseau d'institutions partenaires à travers le Togo.</p>
+                <a href="{{ path('etablissement_index') }}" class="btn btn-outline-success mt-auto">Voir les établissements</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="fs-1 mb-3">📋</div>
+                <h5 class="fw-bold">S'inscrire</h5>
+                <p class="text-muted">Créez un compte gratuit et accédez à des ressources exclusives d'orientation.</p>
+                {% if app.user %}
+                    <a href="{{ path('app_home') }}" class="btn btn-outline-warning mt-auto">Mon espace</a>
+                {% else %}
+                    <a href="{{ path('app_register') }}" class="btn btn-outline-warning mt-auto">Créer un compte</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

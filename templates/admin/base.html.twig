@@ -1,83 +1,559 @@
-{# templates/base.html.twig #}
+{# templates/admin/base.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}SchoolManager{% endblock %}</title>
-   
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/theme.css') }}">
+    <title>{% block title %}Admin - SchoolPrepar{% endblock %}</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     {% block stylesheets %}{% endblock %}
-   
+    
     <style>
-        /* ===== NAVBAR ===== */
-        .navbar {
-            height: 70px;
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .admin-navbar {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            padding: 0.75rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1050;
+            height: 70px;
         }
-        
-        /* ===== SIDEBAR ===== */
-        .sidebar {
+
+        .admin-navbar .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white !important;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-navbar .brand-icon {
+            font-size: 2rem;
+            color: #60a5fa;
+        }
+
+        .admin-sidebar {
             position: fixed;
             top: 70px;
             left: 0;
-            width: 250px;
+            width: 270px;
             height: calc(100vh - 70px);
-            background-color: #1e1e2d;
+            background: linear-gradient(180deg, #1a1f3a 0%, #1e1e3f 100%);
             overflow-y: auto;
             z-index: 1040;
+            padding: 24px 0;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* ===== CONTENU PRINCIPAL - CORRECTION DU DÉPLACEMENT ===== */
-        .main-content {
-            margin-left: 250px;
+        .admin-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .admin-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .admin-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .admin-sidebar-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-sidebar-menu li {
+            margin: 4px 16px;
+        }
+
+        .admin-sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            color: #b0b9c6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+        .admin-sidebar-menu a i {
+            width: 24px;
+            margin-right: 14px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .admin-sidebar-menu a:hover {
+            background-color: rgba(96, 165, 250, 0.15);
+            color: #60a5fa;
+            border-left-color: #60a5fa;
+        }
+
+        .admin-sidebar-menu a.active {
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.2) 0%, transparent 100%);
+            color: white;
+            border-left-color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .admin-container {
+            margin-left: 270px;
             margin-top: 70px;
-            padding: 35px;
             min-height: calc(100vh - 70px);
+            padding: 30px;
             background-color: #f8f9fa;
-            width: calc(100% - 250px);
         }
 
-        /* Pour éviter les chevauchements */
-        .main-content .container-fluid {
-            max-width: 100%;
+        .admin-page-header {
+            margin-bottom: 30px;
+        }
+
+        .admin-page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-page-header h1 i {
+            margin-right: 15px;
+            color: #1e40af;
+            font-size: 2.2rem;
+        }
+
+        .admin-page-header p {
+            color: #718096;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .admin-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-card-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .admin-card-header h5 {
+            margin: 0;
+            font-weight: 600;
+            color: #1a202c;
+            font-size: 1.1rem;
+        }
+
+        .admin-table {
+            margin: 0;
+        }
+
+        .admin-table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #e2e8f0;
+            color: #4a5568;
+            font-weight: 600;
+            padding: 16px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-table tbody td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            color: #374151;
+        }
+
+        .admin-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .btn-admin-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-admin-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+            color: white;
+        }
+
+        .btn-admin-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-admin-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+            color: white;
+        }
+
+        .btn-admin-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-admin-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+            color: white;
+        }
+
+        .btn-admin-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-admin-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+            color: white;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 6px;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-view {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .btn-view:hover {
+            background-color: #bfdbfe;
+            color: #1e3a8a;
+        }
+
+        .btn-edit {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .btn-edit:hover {
+            background-color: #fde68a;
+            color: #b45309;
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-delete:hover {
+            background-color: #fca5a5;
+            color: #991b1b;
+        }
+
+        .admin-alert {
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 20px;
+            padding: 16px 20px;
+        }
+
+        .admin-alert.alert-success {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #166534;
+        }
+
+        .admin-alert.alert-danger {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+        }
+
+        .admin-alert.alert-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .admin-alert.alert-info {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        .stat-card p {
+            margin: 0;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .badge-pending {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        @media (max-width: 991.98px) {
+            .admin-sidebar {
+                width: 0;
+                padding: 0;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .admin-sidebar.active {
+                width: 270px;
+                padding: 24px 0;
+                transform: translateX(0);
+            }
+
+            .admin-container {
+                margin-left: 0;
+            }
+
+            .admin-page-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .admin-container {
+                padding: 20px 16px;
+            }
+
+            .admin-page-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .admin-page-header h1 i {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body>
-
-    <!-- ✅ NAVBAR FIXE -->
-    {% include 'admin/partials/topbar-second.html.twig' %}
-
-    <!-- ===== LAYOUT ===== -->
-    <div class="d-flex">
-
-        <!-- SIDEBAR -->
-        {% include 'admin/partials/sidebar-collapse.html.twig' %}   <!-- Nom que tu utilises -->
-
-        <!-- CONTENU PRINCIPAL -->
-        <div class="main-content flex-grow-1">
-            {% block content %}
-                <!-- Le contenu du dashboard apparaîtra ici -->
-            {% endblock %}
+    <nav class="admin-navbar navbar">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="navbar-brand" href="{{ path('admin_dashboard') }}">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    <span>SchoolPrepar</span>
+                </a>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center text-white">
+                        <div class="user-avatar me-3">
+                            {% if app.user %}
+                                {{ app.user.prenom|first|upper }}{{ app.user.nom|first|upper }}
+                            {% else %}
+                                A
+                            {% endif %}
+                        </div>
+                        <div class="d-none d-md-block">
+                            <div class="fw-semibold">
+                                {% if app.user %}
+                                    {{ app.user.prenom }} {{ app.user.nom }}
+                                {% else %}
+                                    Admin
+                                {% endif %}
+                            </div>
+                            <small class="opacity-75">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    Administrateur
+                                {% else %}
+                                    Utilisateur
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline-light btn-sm">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span class="d-none d-md-inline">Déconnexion</span>
+                    </a>
+                </div>
+            </div>
         </div>
+    </nav>
 
-    </div>
+    <aside class="admin-sidebar">
+        <ul class="admin-sidebar-menu">
+            <li>
+                <a href="{{ path('admin_dashboard') }}" class="{% if 'admin_dashboard' == app.request.attributes.get('_route') %}active{% endif %}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_utilisateur') }}" class="{% if 'admin_utilisateur' in app.request.attributes.get('_route', '') %}active{% endif %}">
+                    <i class="fas fa-users"></i>
+                    <span>Utilisateurs</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_filiere') }}" class="{% if 'admin_filiere' in app.request.attributes.get('_route', '') %}active{% endif %}">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Filières</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_etablissement') }}" class="{% if 'admin_etablissement' in app.request.attributes.get('_route', '') %}active{% endif %}">
+                    <i class="fas fa-university"></i>
+                    <span>Établissements</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('admin_evenement') }}" class="{% if 'admin_evenement' in app.request.attributes.get('_route', '') %}active{% endif %}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Événements</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_home') }}" class="">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Voir le site</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 
-    <!-- FOOTER -->
-    {% include 'admin/partials/footer.html.twig' %}
+    <main class="admin-container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert admin-alert alert-{{ label }} fade show" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
+        {% block admin_content %}
+        {% endblock %}
+    </main>
 
-    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     {% block javascripts %}{% endblock %}
-
 </body>
 </html>

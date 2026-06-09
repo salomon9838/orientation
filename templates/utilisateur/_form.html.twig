@@ -1,23 +1,98 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
 
-    {% for field in form %}
-        <div class="mb-3">
-            {{ form_label(field, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
-            
-            {{ form_widget(field, {
-                'attr': {
-                    'class': field.vars.block_prefixes[1] == 'choice' ? 'form-select' : 'form-control'
-                }
-            }) }}
-
-            {{ form_errors(field) }}
-        </div>
-    {% endfor %}
-
-    <div class="text-end mt-3">
-        <button class="btn btn-primary px-4">
-            {{ button_label|default('Save') }}
-        </button>
+<div class="row">
+    {# NOM #}
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Nom</label>
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre nom'}}) }}
+        {{ form_errors(form.nom) }}
     </div>
 
+    {# PRÉNOM #}
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Prénom</label>
+        {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre prénom'}}) }}
+        {{ form_errors(form.prenom) }}
+    </div>
+</div>
+
+{# EMAIL #}
+<div class="mb-3">
+    <label class="form-label fw-semibold"><i class="fa fa-envelope"></i> Adresse e-mail</label>
+    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'vous@example.com'}}) }}
+    {{ form_errors(form.email) }}
+</div>
+
+<div class="row">
+    {# FILIÈRE #}
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Filière</label>
+        {{ form_widget(form.filiere, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.filiere) }}
+    </div>
+
+    {# RÔLES #}
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold"><i class="fa fa-shield"></i> Rôles</label>
+        <div class="form-check">
+            {{ form_widget(form.roles, {'attr': {'class': 'form-check-input'}}) }}
+        </div>
+        {{ form_errors(form.roles) }}
+    </div>
+</div>
+
+{# ÉVÉNEMENTS #}
+<div class="mb-3">
+    <label class="form-label fw-semibold"><i class="fa fa-calendar"></i> Événements</label>
+    {{ form_widget(form.evenements, {'attr': {'class': 'form-select', 'multiple': 'multiple'}}) }}
+    <small class="text-muted d-block mt-2">Utilisez Ctrl+Clic pour sélectionner plusieurs événements</small>
+    {{ form_errors(form.evenements) }}
+</div>
+
+{# IMAGE UPLOAD #}
+<div class="mb-3">
+    <label class="form-label fw-semibold">🖼️ Photo de profil</label>
+
+    {# Aperçu image existante #}
+    {% if utilisateur is defined and utilisateur.imageUrl %}
+        <div class="mb-2">
+            <p class="text-muted small mb-1">Photo actuelle :</p>
+            <img src="{{ utilisateur.imageUrl }}" alt="Photo actuelle" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+    {% endif %}
+
+    {{ form_widget(form.imageFile, {'attr': {'class': 'form-control', 'id': 'imageFileUser'}}) }}
+    {{ form_errors(form.imageFile) }}
+    <small class="text-muted d-block mt-1">Formats : JPG, PNG, GIF, WEBP — Max 5 Mo</small>
+
+    <div id="imagePreviewUser" class="mt-2" style="display:none;">
+        <p class="text-muted small mb-1">Aperçu :</p>
+        <img id="previewImgUser" src="" alt="Aperçu" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+    </div>
+</div>
+
+{# BOUTONS #}
+<div class="d-flex gap-2 justify-content-end mt-4">
+    <a href="{{ path('app_utilisateur_index') }}" class="btn btn-outline-secondary">
+        <i class="fa fa-times"></i> Annuler
+    </a>
+    <button class="btn btn-primary px-4">
+        <i class="fa fa-save"></i> {{ button_label|default('Enregistrer') }}
+    </button>
+</div>
+
 {{ form_end(form) }}
+
+<script>
+document.getElementById('imageFileUser').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImgUser').src = e.target.result;
+            document.getElementById('imagePreviewUser').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>

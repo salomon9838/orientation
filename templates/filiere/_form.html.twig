@@ -1,0 +1,131 @@
+{# Formulaire réutilisable pour créer/éditer une filière #}
+
+<div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body p-4">
+        
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
+
+        <div class="row">
+            {# NOM #}
+            <div class="col-md-6 mb-3">
+                <label for="filiere_nom" class="form-label fw-semibold">
+                    Nom de la filière
+                </label>
+                {{ form_widget(form.nom, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Ex: Génie Logiciel'
+                    }
+                }) }}
+                {{ form_errors(form.nom) }}
+            </div>
+
+            {# ÉTABLISSEMENT #}
+            <div class="col-md-6 mb-3">
+                <label for="filiere_etablissement" class="form-label fw-semibold">
+                    Établissement
+                </label>
+                {{ form_widget(form.etablissement, {
+                    'attr': {
+                        'class': 'form-select'
+                    }
+                }) }}
+                {{ form_errors(form.etablissement) }}
+            </div>
+        </div>
+
+        {# DESCRIPTION #}
+        <div class="mb-3">
+            <label for="filiere_description" class="form-label fw-semibold">
+                Description
+            </label>
+            {{ form_widget(form.description, {
+                'attr': {
+                    'class': 'form-control',
+                    'rows': '4',
+                    'placeholder': 'Décrivez la filière en détail...'
+                }
+            }) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="row">
+            {# IMAGE URL #}
+            <div class="col-md-6 mb-3">
+                <label for="filiere_imageUrl" class="form-label fw-semibold">
+                    🖼️ URL Image (Google Images)
+                </label>
+                {{ form_widget(form.imageUrl, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'https://example.com/image.jpg'
+                    }
+                }) }}
+                <small class="text-muted d-block mt-2">
+                    💡 Conseil: Cliquez droit sur une image Google → Copier l\'adresse
+                </small>
+                {{ form_errors(form.imageUrl) }}
+            </div>
+
+            {# DATE DE CRÉATION #}
+            <div class="col-md-6 mb-3">
+                <label for="filiere_createdAt" class="form-label fw-semibold">
+                    Date de création
+                </label>
+                {{ form_widget(form.createdAt, {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }) }}
+                {{ form_errors(form.createdAt) }}
+            </div>
+        </div>
+
+        {# APERÇU IMAGE #}
+        <div id="imagePreview" class="mb-3" style="display:none;">
+            <label class="form-label fw-semibold">Aperçu de l'image:</label>
+            <div class="card border-light">
+                <img id="previewImg" src="" alt="Aperçu" class="card-img-top" style="max-height: 250px; object-fit: cover;">
+            </div>
+        </div>
+
+        {# BOUTONS #}
+        <div class="d-flex gap-2 justify-content-end mt-4">
+            <a href="{{ path('filieres') }}" class="btn btn-outline-secondary">
+                <i class="fa fa-times"></i> Annuler
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const imageInput = document.querySelector('input[name="filiere_type[imageUrl]"]');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    
+    if (imageInput) {
+        imageInput.addEventListener('change', function() {
+            const url = this.value.trim();
+            if (url) {
+                previewImg.src = url;
+                imagePreview.style.display = 'block';
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+        
+        // Afficher si l'image existe déjà
+        if (imageInput.value) {
+            previewImg.src = imageInput.value;
+            imagePreview.style.display = 'block';
+        }
+    }
+});
+</script>

@@ -1,0 +1,160 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier Événement - SchoolPrepar{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+
+    <div class="admin-page-header">
+        <div class="d-flex align-items-center">
+            <a href="{{ path('admin_evenement') }}" class="btn btn-outline-secondary me-3">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1><i class="fas fa-calendar-alt"></i>Modifier l'Événement</h1>
+                <p>Modifiez les informations de {{ evenement.titre }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-edit me-2"></i>Modifier les informations</h5>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.titre) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.description, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            {{ form_label(form.dateDebut, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.dateDebut) }}
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            {{ form_label(form.dateFin, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.dateFin) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.lieu, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.lieu) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.etablissement, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.etablissement, {'attr': {'class': 'form-select'}}) }}
+                            {{ form_errors(form.etablissement) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.utilisateurs, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.utilisateurs) }}
+                            {{ form_errors(form.utilisateurs) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.imageFile, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {% if evenement.imageUrl %}
+                                <div class="mb-3">
+                                    <img src="{{ evenement.imageUrl }}" alt="{{ evenement.titre }}" class="img-thumbnail" style="max-height: 150px;">
+                                </div>
+                                <small class="text-muted d-block mb-2">Image actuelle - téléchargez une nouvelle image pour la remplacer</small>
+                            {% endif %}
+                            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.imageFile) }}
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-admin-warning">
+                            <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                        </button>
+                        <a href="{{ path('admin_evenement') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="admin-card mb-4">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-info-circle me-2"></i>Informations</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3">
+                            <strong>ID:</strong> #{{ evenement.id }}
+                        </li>
+                        <li class="mb-3">
+                            <strong>Titre:</strong> {{ evenement.titre }}
+                        </li>
+                        <li class="mb-3">
+                            <strong>Date de début:</strong> {{ evenement.dateDebut|date('d/m/Y H:i') }}
+                        </li>
+                        <li>
+                            <strong>Participants:</strong> {{ evenement.utilisateurs|length }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-lightbulb me-2"></i>Astuces</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Vérifiez toutes les informations avant de sauvegarder
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Une nouvelle image remplacera l'ancienne
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Les modifications sont immédiatement enregistrées
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

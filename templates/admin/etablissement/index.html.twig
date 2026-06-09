@@ -1,88 +1,98 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Gestion des Établissements{% endblock %}
+{% block title %}Gestion des Établissements - SchoolPrepar{% endblock %}
 
-{% block body %}
+{% block admin_content %}
 <div class="container-fluid">
 
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold">Gestion des Établissements</h3>
+    <div class="admin-page-header">
+        <h1><i class="fas fa-university"></i>Gestion des Établissements</h1>
+        <p>Gérez tous les établissements partenaires de la plateforme</p>
+    </div>
 
-        <a href="{{ path('etablissement_index') }}" class="btn btn-success">
-            + Ajouter un établissement
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary">
+                <i class="fas fa-filter me-2"></i>Filtrer
+            </button>
+            <button class="btn btn-outline-secondary">
+                <i class="fas fa-download me-2"></i>Exporter
+            </button>
+        </div>
+        <a href="{{ path('admin_etablissement_new') }}" class="btn btn-admin-primary">
+            <i class="fas fa-plus me-2"></i>Nouvel Établissement
         </a>
     </div>
 
-    <!-- MESSAGE FLASH -->
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
+    <div class="admin-card">
+        <div class="admin-card-header d-flex justify-content-between align-items-center">
+            <h5><i class="fas fa-list me-2"></i>Liste des établissements</h5>
+            <span class="badge bg-primary">{{ etablissements|length }} établissement(s)</span>
         </div>
-    {% endfor %}
-
-    <!-- TABLE -->
-    <div class="card shadow-sm">
         <div class="card-body p-0">
-
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
-
-                    <thead class="table-light">
+                <table class="table admin-table mb-0">
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
                             <th>Ville</th>
+                            <th>Téléphone</th>
+                            <th>Email</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                     {% for etab in etablissements %}
                         <tr>
-                            <td>{{ etab.id }}</td>
-
+                            <td><span class="fw-semibold">#{{ etab.id }}</span></td>
                             <td>
-                                <strong>{{ etab.nom }}</strong>
+                                <div class="d-flex align-items-center">
+                                    {% if etab.imageUrl %}
+                                        <img src="{{ etab.imageUrl }}" alt="{{ etab.nom }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                    {% else %}
+                                        <div class="rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                            <i class="fas fa-university text-white"></i>
+                                        </div>
+                                    {% endif %}
+                                    <strong class="text-dark">{{ etab.nom }}</strong>
+                                </div>
                             </td>
-
-                            <td>{{ etab.ville }}</td>
-
+                            <td><i class="fas fa-map-marker-alt text-muted me-2"></i>{{ etab.ville }}</td>
+                            <td><i class="fas fa-phone text-muted me-2"></i>{{ etab.telephone }}</td>
+                            <td><i class="fas fa-envelope text-muted me-2"></i>{{ etab.email }}</td>
                             <td class="text-center">
-
-                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
-                                   class="btn btn-sm btn-outline-primary me-1">
-                                    Voir
+                                <a href="{{ path('admin_etablissement_show', {'id': etab.id}) }}" class="btn-action btn-view">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-
-                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
-                                   class="btn btn-sm btn-outline-warning me-1">
-                                    Modifier
+                                <a href="{{ path('admin_etablissement_edit', {'id': etab.id}) }}" class="btn-action btn-edit">
+                                    <i class="fas fa-edit"></i>
                                 </a>
-
-                                <a href="{{ path('etablissement_index', {'id': etab.id}) }}"
-                                   class="btn btn-sm btn-outline-danger"
-                                   onclick="return confirm('Voulez-vous supprimer cet établissement ?')">
-                                    Supprimer
-                                </a>
-
+                                <form method="POST" action="{{ path('admin_etablissement_delete', {'id': etab.id}) }}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer cet établissement ? Cette action est irréversible.');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etab.id) }}">
+                                    <button type="submit" class="btn-action btn-delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
-
                     {% else %}
                         <tr>
-                            <td colspan="4" class="text-center py-4 text-muted">
-                                Aucun établissement trouvé
+                            <td colspan="6" class="text-center py-5">
+                                <div class="text-muted">
+                                    <i class="fas fa-building fa-3x mb-3 opacity-25"></i>
+                                    <h5 class="fw-semibold mb-2">Aucun établissement trouvé</h5>
+                                    <p class="mb-3">Commencez par ajouter votre premier établissement</p>
+                                    <a href="{{ path('admin_etablissement_new') }}" class="btn btn-admin-primary">
+                                        <i class="fas fa-plus me-2"></i>Ajouter un établissement
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
-
                     </tbody>
-
                 </table>
             </div>
-
         </div>
     </div>
 

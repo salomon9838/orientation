@@ -12,8 +12,13 @@
 
     <div class="row g-4">
         {% for filiere in filieres %}
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
                 <div class="card h-100 shadow-sm border-0 transition-hover">
+                    {% if filiere.imageUrl %}
+                        <img src="{{ filiere.imageUrl }}" alt="{{ filiere.nom }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="{{ asset('assets/img/portfolio/2.jpg') }}" alt="Aperçu de la filière" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;">
+                    {% endif %}
                     <div class="card-body">
                         <h4 class="fw-bold text-dark mb-3">{{ filiere.nom }}</h4>
                         <p class="text-muted small" style="text-align: justify;">

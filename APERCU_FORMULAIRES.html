@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aperçu des Formulaires - Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; font-family: 'Poppins', sans-serif; }
+        .header { background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); color: white; padding: 2rem 0; margin-bottom: 2rem; }
+        .form-preview { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 2rem; }
+        .field-group { margin-bottom: 1.5rem; }
+        .field-label { font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; display: block; }
+        .field-input { border: 1.5px solid #e2e8f0; padding: 0.75rem; border-radius: 6px; width: 100%; }
+        .field-input:focus { border-color: #1e40af; outline: none; }
+        .placeholder { color: #cbd5e1; font-size: 0.9rem; }
+        .help-text { color: #64748b; font-size: 0.85rem; margin-top: 0.5rem; }
+        .preview-image { max-width: 200px; max-height: 200px; margin-top: 1rem; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .button-group { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-primary { background-color: #1e40af; border: none; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .btn-secondary { background-color: white; border: 1.5px solid #e2e8f0; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; color: #64748b; font-weight: 600; }
+        .btn-primary:hover { background-color: #1e3a8a; }
+        .btn-secondary:hover { background-color: #f8fafc; }
+        .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        h2 { color: #1e40af; margin-top: 2rem; margin-bottom: 1rem; }
+        .container-wide { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container-wide">
+            <h1>📋 Aperçu des Formulaires avec Images</h1>
+            <p>Visualisez comment les formulaires apparaissent dans votre application</p>
+        </div>
+    </div>
+
+    <div class="container-wide">
+
+        <!-- FORMULAIRE 1: FILIÈRE -->
+        <h2>1️⃣ Formulaire FILIÈRE</h2>
+        <div class="cols">
+            <div class="form-preview">
+                <h3 style="color: #1e40af; margin-bottom: 1.5rem;">➕ Créer une Filière</h3>
+                
+                <div class="field-group">
+                    <label class="field-label">Nom de la filière</label>
+                    <input type="text" class="field-input" placeholder="Ex: Génie Logiciel">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Description</label>
+                    <textarea class="field-input" rows="4" placeholder="Décrivez la filière en détail..."></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field-group">
+                        <label class="field-label">Établissement</label>
+                        <select class="field-input">
+                            <option>Sélectionnez...</option>
+                            <option>Université A</option>
+                            <option>Université B</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Date création</label>
+                        <input type="date" class="field-input" value="2026-05-21">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">🖼️ URL Image (Google Images) ← NOUVEAU</label>
+                    <input type="text" class="field-input" placeholder="https://example.com/image.jpg">
+                    <div class="help-text">💡 Conseil: Cliquez droit sur une image Google → Copier l'adresse</div>
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200" alt="Aperçu" class="preview-image">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary">Annuler</button>
+                    <button class="btn-primary">💾 Enregistrer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULAIRE 2: ÉTABLISSEMENT -->
+        <h2>2️⃣ Formulaire ÉTABLISSEMENT</h2>
+        <div class="cols">
+            <div class="form-preview">
+                <h3 style="color: #1e40af; margin-bottom: 1.5rem;">➕ Créer un Établissement</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field-group">
+                        <label class="field-label">🏢 Nom établissement</label>
+                        <input type="text" class="field-input" placeholder="Ex: Lycée Henri Matisse">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">🗺️ Ville</label>
+                        <input type="text" class="field-input" placeholder="Ex: Lomé">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">🏠 Adresse</label>
+                    <input type="text" class="field-input" placeholder="Ex: 123 Rue de la Paix">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field-group">
+                        <label class="field-label">📞 Téléphone</label>
+                        <input type="tel" class="field-input" placeholder="+228 XXXX XXXX">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">📧 Email</label>
+                        <input type="email" class="field-input" placeholder="contact@etablissement.fr">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">🖼️ URL Image (Google Images) ← NOUVEAU</label>
+                    <input type="text" class="field-input" placeholder="https://example.com/image.jpg">
+                    <div class="help-text">💡 Conseil: Cliquez droit sur une image Google → Copier l'adresse</div>
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=200" alt="Aperçu" class="preview-image">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary">Annuler</button>
+                    <button class="btn-primary">💾 Enregistrer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULAIRE 3: UTILISATEUR -->
+        <h2>3️⃣ Formulaire UTILISATEUR</h2>
+        <div class="cols">
+            <div class="form-preview">
+                <h3 style="color: #1e40af; margin-bottom: 1.5rem;">➕ Créer un Utilisateur</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field-group">
+                        <label class="field-label">Nom</label>
+                        <input type="text" class="field-input" placeholder="Entrez votre nom">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Prénom</label>
+                        <input type="text" class="field-input" placeholder="Entrez votre prénom">
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">📧 Email</label>
+                    <input type="email" class="field-input" placeholder="vous@example.com">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="field-group">
+                        <label class="field-label">Filière</label>
+                        <select class="field-input">
+                            <option>Sélectionnez...</option>
+                            <option>Informatique</option>
+                            <option>Gestion</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">🛡️ Rôles</label>
+                        <div style="margin-top: 0.5rem;">
+                            <input type="checkbox"> ROLE_USER
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">🖼️ Photo de profil (URL Google Images) ← NOUVEAU</label>
+                    <input type="text" class="field-input" placeholder="https://example.com/profile.jpg">
+                    <div class="help-text">💡 Conseil: Cliquez droit sur une image Google → Copier l'adresse</div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" alt="Aperçu" class="preview-image" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary">Annuler</button>
+                    <button class="btn-primary">💾 Enregistrer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RÉSULTAT FINAL -->
+        <h2>✨ Résultat Final sur les Pages</h2>
+        <div class="form-preview" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);">
+            <h3 style="color: #1e40af; text-align: center;">4 IMAGES PAR LIGNE</h3>
+            <div class="cols" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.5rem;">
+                <div style="text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=150&h=150&fit=crop" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem;">
+                    <p style="font-size: 0.9rem; font-weight: 600;">Filière 1</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=150&h=150&fit=crop" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem;">
+                    <p style="font-size: 0.9rem; font-weight: 600;">Filière 2</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem;">
+                    <p style="font-size: 0.9rem; font-weight: 600;">Filière 3</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=150&h=150&fit=crop" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 0.5rem;">
+                    <p style="font-size: 0.9rem; font-weight: 600;">Filière 4</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 1.5rem; color: #64748b;">
+                ✓ Design responsive (4 colonnes desktop, 2 tablet, 1 mobile)<br>
+                ✓ Effets hover (zoom + ombre)<br>
+                ✓ Images hauteur 200px<br>
+                ✓ Placeholder si pas d'image
+            </p>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: #1e40af; color: white; border-radius: 12px;">
+            <h2 style="color: white;">✨ Prêt à utiliser!</h2>
+            <p>Exécutez ces commandes:</p>
+            <code style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 6px; display: block; margin: 1rem 0;">
+                php bin/console doctrine:migrations:migrate<br>
+                symfony server:start<br>
+                http://localhost:8000/utilisateur/new
+            </code>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des Utilisateurs - Admin{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Gestion des Utilisateurs</h3>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Email</th>
+                            <th>Nom</th>
+                            <th>Prénoms</th>
+                            <th>Rôles</th>
+                            <th>Date d'inscription</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for utilisateur in utilisateurs %}
+                        <tr>
+                            <td><code>{{ utilisateur.id }}</code></td>
+                            <td><a href="mailto:{{ utilisateur.email }}">{{ utilisateur.email }}</a></td>
+                            <td>{{ utilisateur.nom ?? '-' }}</td>
+                            <td>{{ utilisateur.prenom ?? '-' }}</td>
+                            <td>
+                                {% for role in utilisateur.roles %}
+                                    <span class="badge bg-{{ role == 'ROLE_ADMIN' ? 'danger' : 'info' }}">{{ role }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>{% if utilisateur.createdAt %}{{ utilisateur.createdAt|date('d/m/Y H:i') }}{% else %}-{% endif %}</td>
+                            <td class="text-center">
+                                <a href="{{ path('admin_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-sm btn-outline-primary me-1">Voir</a>
+                                <form method="POST" action="{{ path('admin_utilisateur_delete', {'id': utilisateur.id}) }}" class="d-inline" onsubmit="return confirm('Êtes-vous sûr ?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted">Aucun utilisateur trouvé</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

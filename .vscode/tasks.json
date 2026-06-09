@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Doctrine Migrations",
+			"type": "shell",
+			"command": "php C:\\Ecole\\schoolprepar\\bin\\console doctrine:migrations:migrate --no-interaction",
+			"isBackground": false
+		}
+	]
+}

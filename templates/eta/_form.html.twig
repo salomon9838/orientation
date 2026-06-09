@@ -1,44 +1,83 @@
-{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'enctype': 'multipart/form-data'}}) }}
 
 <div class="row g-3">
 
     <div class="col-md-6">
-        <label class="form-label fw-semibold">Nom</label>
-        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de l’établissement'}}) }}
+        <label class="form-label fw-semibold">Nom de l'établissement</label>
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': "Nom de l'établissement"}}) }}
+        {{ form_errors(form.nom) }}
     </div>
 
     <div class="col-md-6">
         <label class="form-label fw-semibold">Adresse</label>
         {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+        {{ form_errors(form.adresse) }}
     </div>
 
     <div class="col-md-6">
         <label class="form-label fw-semibold">Ville</label>
         {{ form_widget(form.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ville'}}) }}
+        {{ form_errors(form.ville) }}
     </div>
 
     <div class="col-md-6">
         <label class="form-label fw-semibold">Téléphone</label>
         {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de téléphone'}}) }}
+        {{ form_errors(form.telephone) }}
     </div>
 
     <div class="col-md-12">
         <label class="form-label fw-semibold">Email</label>
         {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    {# IMAGE UPLOAD #}
+    <div class="col-md-12">
+        <label class="form-label fw-semibold">🖼️ Image de l'établissement</label>
+
+        {# Aperçu image existante #}
+        {% if etablissement.imageUrl %}
+            <div class="mb-2">
+                <p class="text-muted small mb-1">Image actuelle :</p>
+                <img src="{{ etablissement.imageUrl }}" alt="Image actuelle" class="img-thumbnail" style="max-height: 150px; object-fit: cover;">
+            </div>
+        {% endif %}
+
+        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control', 'id': 'imageFile'}}) }}
+        {{ form_errors(form.imageFile) }}
+        <small class="text-muted">Formats : JPG, PNG, GIF, WEBP — Max 5 Mo</small>
+
+        {# Aperçu en temps réel #}
+        <div id="imagePreview" class="mt-2" style="display:none;">
+            <p class="text-muted small mb-1">Aperçu :</p>
+            <img id="previewImg" src="" alt="Aperçu" class="img-thumbnail" style="max-height: 150px; object-fit: cover;">
+        </div>
     </div>
 
 </div>
 
 <div class="mt-4 d-flex justify-content-between">
-
     <a href="{{ path('app_etablissements_index') }}" class="btn btn-outline-secondary">
         ⬅ Retour
     </a>
-
     <button class="btn btn-success px-4">
         💾 {{ button_label|default('Enregistrer') }}
     </button>
-
 </div>
 
 {{ form_end(form) }}
+
+<script>
+document.getElementById('imageFile').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImg').src = e.target.result;
+            document.getElementById('imagePreview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>

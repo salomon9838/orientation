@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etablissement;
 use App\Form\EtablissementType;
+use App\Service\ImageUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,16 +27,23 @@ final class EtablissementsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_etablissements_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ImageUploadService $uploadService): Response
     {
         $etablissement = new Etablissement();
         $form = $this->createForm(EtablissementType::class, $etablissement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+            if ($imageFile) {
+                $imageUrl = $uploadService->upload($imageFile);
+                $etablissement->setImageUrl($imageUrl);
+            }
+
             $entityManager->persist($etablissement);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Établissement créé avec succès.');
             return $this->redirectToRoute('app_etablissements_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -54,14 +62,21 @@ final class EtablissementsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_etablissements_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Etablissement $etablissement, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Etablissement $etablissement, EntityManagerInterface $entityManager, ImageUploadService $uploadService): Response
     {
         $form = $this->createForm(EtablissementType::class, $etablissement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+            if ($imageFile) {
+                $imageUrl = $uploadService->upload($imageFile);
+                $etablissement->setImageUrl($imageUrl);
+            }
+
             $entityManager->flush();
 
+            $this->addFlash('success', 'Établissement modifié avec succès.');
             return $this->redirectToRoute('app_etablissements_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -77,6 +92,7 @@ final class EtablissementsController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$etablissement->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($etablissement);
             $entityManager->flush();
+            $this->addFlash('success', 'Établissement supprimé.');
         }
 
         return $this->redirectToRoute('app_etablissements_index', [], Response::HTTP_SEE_OTHER);

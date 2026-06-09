@@ -1,79 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Evenement{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-{% endblock %}
+{% block title %}{{ evenement.titre }} - SchoolPrepar{% endblock %}
 
 {% block body %}
-<div class="container py-5">
+<div class="container py-5 mt-5">
 
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
 
             <div class="card shadow border-0 rounded-3">
                 <div class="card-body p-5">
-
-                    <h2 class="text-center fw-bold text-primary mb-4">
-                        Détails de l'événement
-                    </h2>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered align-middle">
-                            <tbody>
-                                <tr>
-                                    <th class="table-light w-25">Id</th>
-                                    <td>{{ evenement.id }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-light">Titre</th>
-                                    <td class="fw-semibold">{{ evenement.titre }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-light">Description</th>
-                                    <td>{{ evenement.description }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="table-light">Date début</th>
-                                    {{ evenement.dateDebut|date('d/m/Y H:i') }}
-                                </tr>
-                                <tr>
-                                    <th class="table-light">Date fin</th>
-                                   {{ evenement.dateDebut|date('d/m/Y H:i') }}
-                                </tr>
-                                <tr>
-                                    <th class="table-light">Lieu</th>
-                                    <td>{{ evenement.lieu }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="d-flex justify-content-between mt-4">
-
-                        <a href="{{ path('app_evenement_index') }}" class="btn btn-outline-secondary">
-                            ← Retour
-                        </a>
-
-                        <div>
-                            <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}" class="btn btn-warning me-2">
-                                Modifier
-                            </a>
-
-                            {{ include('evenement/_delete_form.html.twig') }}
+                    {% if evenement.imageUrl %}
+                        <img src="{{ evenement.imageUrl }}" alt="{{ evenement.titre }}" class="img-fluid rounded-3 mb-5" style="max-height: 400px; object-fit: cover; width: 100%;">
+                    {% endif %}
+                    
+                    <h1 class="fw-bold text-primary mb-4">{{ evenement.titre }}</h1>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-calendar-alt fa-2x text-primary me-3"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Date de début</small>
+                                            <h6 class="mb-0 fw-semibold">{{ evenement.dateDebut|date('d/m/Y H:i') }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-clock fa-2x text-success me-3"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Date de fin</small>
+                                            <h6 class="mb-0 fw-semibold">{{ evenement.dateFin|date('d/m/Y H:i') }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt fa-2x text-warning me-3"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Lieu</small>
+                                            <h6 class="mb-0 fw-semibold">{{ evenement.lieu }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    <hr class="mb-4">
+
+                    <h3 class="fw-bold text-dark mb-3">À propos de l'événement</h3>
+                    <p class="text-muted">{{ evenement.description }}</p>
+                    
+                    {% if evenement.etablissement %}
+                        <div class="mt-4">
+                            <h5 class="fw-semibold text-dark mb-2">Organisé par</h5>
+                            <a href="#" class="text-primary fw-semibold">
+                                <i class="fas fa-university me-2"></i>{{ evenement.etablissement.nom }}
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    {% if evenement.utilisateurs|length > 0 %}
+                        <div class="mt-4">
+                            <h5 class="fw-semibold text-dark mb-2">
+                                <i class="fas fa-users me-2"></i>
+                                Participants ({{ evenement.utilisateurs|length }})
+                            </h5>
+                            <div class="list-group list-group-flush">
+                                {% for utilisateur in evenement.utilisateurs %}
+                                    <div class="list-group-item border-0">
+                                        <div class="d-flex align-items-center">
+                                            {% if utilisateur.imageUrl %}
+                                                <img src="{{ utilisateur.imageUrl }}" alt="{{ utilisateur.prenom }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                            {% else %}
+                                                <div class="rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                                    <span class="text-white fw-bold" style="font-size: 14px;">{{ utilisateur.prenom|first|upper }}{{ utilisateur.nom|first|upper }}</span>
+                                                </div>
+                                            {% endif %}
+                                            <strong class="text-dark">{{ utilisateur.prenom }} {{ utilisateur.nom }}</strong>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between mt-5">
+                        <a href="{{ path('app_evenement_index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                        </a>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
 {% endblock %}

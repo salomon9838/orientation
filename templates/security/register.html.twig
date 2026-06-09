@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - SchoolPrepar{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h1 class="h3 fw-bold text-dark">Créer un compte</h1>
+                        <p class="text-muted">Rejoignez SchoolPrepar et accédez à tous les services</p>
+                    </div>
+
+                    {% if app.user %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Vous êtes déjà connecté. <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% else %}
+                        <form method="post" class="needs-validation" novalidate>
+                            {{ form_start(registrationForm) }}
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(registrationForm.nom, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {% if registrationForm.nom.vars.errors|length > 0 %}
+                                            <div class="alert alert-danger mt-2 mb-0">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                {% for error in registrationForm.nom.vars.errors %}
+                                                    <span>{{ error.message }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(registrationForm.prenom, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                        {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {% if registrationForm.prenom.vars.errors|length > 0 %}
+                                            <div class="alert alert-danger mt-2 mb-0">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                {% for error in registrationForm.prenom.vars.errors %}
+                                                    <span>{{ error.message }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                    {% if registrationForm.email.vars.errors|length > 0 %}
+                                        <div class="alert alert-danger mt-2 mb-0">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            {% for error in registrationForm.email.vars.errors %}
+                                                <span>{{ error.message }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(registrationForm.plainPassword, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {% if registrationForm.plainPassword.vars.errors|length > 0 %}
+                                            <div class="alert alert-danger mt-2 mb-0">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                {% for error in registrationForm.plainPassword.vars.errors %}
+                                                    <span>{{ error.message }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        <small class="form-text text-muted d-block mt-1">Au moins 8 caractères</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(registrationForm.confirm_password, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                        {{ form_widget(registrationForm.confirm_password, {'attr': {'class': 'form-control form-control-lg'}}) }}
+                                        {% if registrationForm.confirm_password.vars.errors|length > 0 %}
+                                            <div class="alert alert-danger mt-2 mb-0">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                                {% for error in registrationForm.confirm_password.vars.errors %}
+                                                    <span>{{ error.message }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                                {% if registrationForm.agreeTerms.vars.errors|length > 0 %}
+                                    <div class="alert alert-danger mt-2 mb-0">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        {% for error in registrationForm.agreeTerms.vars.errors %}
+                                            <span>{{ error.message }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <button class="btn btn-primary btn-lg w-100 py-2 fw-bold mb-3" type="submit">
+                                <i class="fas fa-user-plus me-2"></i>S'inscrire
+                            </button>
+
+                            {{ form_end(registrationForm) }}
+
+                            <hr class="my-4">
+
+                            <div class="text-center">
+                                <p class="text-muted mb-2">Déjà inscrit ?</p>
+                                <a href="{{ path('app_login') }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Se connecter
+                                </a>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

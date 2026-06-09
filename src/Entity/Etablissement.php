@@ -29,6 +29,9 @@ class Etablissement
     #[ORM\Column(length:255)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $imageUrl = null;
+
     #[ORM\OneToMany(mappedBy: "etablissement", targetEntity: Filiere::class)]
     private Collection $filieres;
 
@@ -57,6 +60,9 @@ class Etablissement
 
     public function getEmail(): ?string { return $this->email; }
     public function setEmail(string $email): self { $this->email = $email; return $this; }
+
+    public function getImageUrl(): ?string { return $this->imageUrl; }
+    public function setImageUrl(?string $imageUrl): self { $this->imageUrl = $imageUrl; return $this; }
 
     public function getFilieres(): Collection { return $this->filieres; }
 

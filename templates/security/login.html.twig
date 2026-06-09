@@ -1,34 +1,117 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion - SchoolPrepar{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h1 class="h3 fw-bold text-dark">
+                            Connexion
+                            {% if is_admin_login %}
+                                <span class="badge bg-danger ms-2">Admin</span>
+                            {% endif %}
+                        </h1>
+                        <p class="text-muted">Connectez-vous à votre compte SchoolPrepar</p>
+                    </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
+                    {% if is_admin_login %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            Vous tentez d’accéder à l’espace admin. Merci d’utiliser un compte disposant du rôle <strong>ROLE_ADMIN</strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-exclamation-circle me-2 mt-1"></i>
+                                <div>
+                                    <strong>Erreur d'authentification !</strong><br>
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        </div>
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Si vous souhaitez accéder à l'espace admin, connectez-vous avec un compte disposant du rôle <strong>ROLE_ADMIN</strong>.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Vous êtes connecté en tant que <strong>{{ app.user.userIdentifier }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{{ path('app_login') }}" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">
+                                <i class="fas fa-envelope me-2"></i>Adresse e-mail
+                            </label>
+                            <input 
+                                type="email" 
+                                value="{{ last_username }}" 
+                                name="email" 
+                                id="inputEmail" 
+                                class="form-control form-control-lg" 
+                                
+                                autocomplete="email" 
+                                required 
+                                autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">
+                                <i class="fas fa-lock me-2"></i>Mot de passe
+                            </label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="inputPassword" 
+                                class="form-control form-control-lg" 
+                                placeholder="••••••••"
+                                autocomplete="current-password" 
+                                required>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input 
+                                type="checkbox" 
+                                class="form-check-input" 
+                                name="_remember_me" 
+                                id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Se souvenir de moi
+                            </label>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="btn btn-primary btn-lg w-100 py-2 fw-bold" type="submit">
+                            <i class="fas fa-sign-in-alt me-2"></i>Connexion
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="text-muted mb-2">Pas encore de compte ?</p>
+                        <a href="{{ path('app_register') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-user-plus me-1"></i>S'inscrire maintenant
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
     </div>
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+</div>
 {% endblock %}

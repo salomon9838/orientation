@@ -1,0 +1,1 @@
+mkdir templates\admin\utilisateur && echo "Dossier créé"

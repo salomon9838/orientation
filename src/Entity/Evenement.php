@@ -26,8 +26,11 @@ class Evenement
     #[ORM\Column]
     private ?\DateTimeInterface $dateFin = null;
 
-    #[ORM\Column(length:255)]
+    #[ORM\Column(length: 255)]
     private ?string $lieu = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $imageUrl = null;
 
     #[ORM\ManyToOne(inversedBy: "evenements")]
     private ?Etablissement $etablissement = null;
@@ -54,10 +57,34 @@ class Evenement
     public function getDateFin(): ?\DateTimeInterface { return $this->dateFin; }
     public function setDateFin(\DateTimeInterface $dateFin): self { $this->dateFin = $dateFin; return $this; }
 
-    public function getLieu(): ?string { return $this->lieu; }
-    public function setLieu(string $lieu): self { $this->lieu = $lieu; return $this; }
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
 
-    public function getEtablissement(): ?Etablissement { return $this->etablissement; }
+    public function setLieu(string $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    public function getEtablissement(): ?Etablissement
+    {
+        return $this->etablissement;
+    }
     public function setEtablissement(?Etablissement $etablissement): self { $this->etablissement = $etablissement; return $this; }
 
     public function getUtilisateurs(): Collection { return $this->utilisateurs; }

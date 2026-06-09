@@ -1,0 +1,136 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvel Événement - SchoolPrepar{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+
+    <div class="admin-page-header">
+        <div class="d-flex align-items-center">
+            <a href="{{ path('admin_evenement') }}" class="btn btn-outline-secondary me-3">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1><i class="fas fa-calendar-alt"></i>Créer un Nouvel Événement</h1>
+                <p>Ajoutez un nouvel événement à la plateforme</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-edit me-2"></i>Informations de l'événement</h5>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.titre) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.description, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            {{ form_label(form.dateDebut, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.dateDebut) }}
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            {{ form_label(form.dateFin, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.dateFin) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.lieu, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.lieu) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.etablissement, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.etablissement, {'attr': {'class': 'form-select'}}) }}
+                            {{ form_errors(form.etablissement) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.utilisateurs, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.utilisateurs) }}
+                            {{ form_errors(form.utilisateurs) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            {{ form_label(form.imageFile, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.imageFile) }}
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-admin-primary">
+                            <i class="fas fa-save me-2"></i>Créer l'événement
+                        </button>
+                        <a href="{{ path('admin_evenement') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h5><i class="fas fa-lightbulb me-2"></i>Astuces</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Remplissez tous les champs obligatoires
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Sélectionnez l'établissement qui organise l'événement
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Utilisez une image claire et représentative
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Ajoutez les participants prévus à l'événement
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

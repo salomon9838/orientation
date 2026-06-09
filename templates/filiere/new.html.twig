@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une filière - SchoolPrepar{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-6 fw-bold text-primary">
+                <i class="fa fa-plus-circle"></i> Créer une nouvelle filière
+            </h1>
+            <p class="text-muted">Ajoutez une nouvelle filière avec ses détails et image</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            {% include 'filiere/_form.html.twig' with {
+                'form': form,
+                'button_label': 'Créer la filière'
+            } %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -13,6 +13,11 @@
         {% for e in etablissements %}
             <div class="col">
                 <div class="card h-100 shadow-sm border-0 transition-hover">
+                    {% if e.imageUrl %}
+                        <img src="{{ e.imageUrl }}" alt="{{ e.nom }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="{{ asset('assets/img/portfolio/3.jpg') }}" alt="Aperçu de l'établissement" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-primary">{{ e.nom }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">

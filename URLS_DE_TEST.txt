@@ -1,0 +1,215 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    🔗 URLS DIRECTES DE TEST - COPIEZ/COLLEZ                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+
+✅ FORMULAIRES DE CRÉATION
+════════════════════════════════════════════════════════════════════════════
+
+CRÉER FILIÈRE:
+http://localhost:8000/fil/new
+
+CRÉER ÉTABLISSEMENT:
+http://localhost:8000/eta/new
+
+CRÉER UTILISATEUR:
+http://localhost:8000/utilisateur/new
+
+
+📋 LISTES (AFFICHAGE AVEC IMAGES)
+════════════════════════════════════════════════════════════════════════════
+
+LISTER FILIÈRES:
+http://localhost:8000/fil
+
+LISTER ÉTABLISSEMENTS:
+http://localhost:8000/eta
+
+LISTER UTILISATEURS (DASHBOARD):
+http://localhost:8000/utilisateur
+
+
+✏️ ÉDITION (APRÈS CRÉATION)
+════════════════════════════════════════════════════════════════════════════
+
+ÉDITER FILIÈRE ID 1:
+http://localhost:8000/fil/1/edit
+
+ÉDITER ÉTABLISSEMENT ID 1:
+http://localhost:8000/eta/1/edit
+
+ÉDITER UTILISATEUR ID 1:
+http://localhost:8000/utilisateur/1/edit
+
+
+🏠 PAGES DE BASE
+════════════════════════════════════════════════════════════════════════════
+
+PAGE D'ACCUEIL:
+http://localhost:8000/
+
+CONNEXION:
+http://localhost:8000/login
+
+INSCRIPTION:
+http://localhost:8000/register
+
+
+📸 IMAGES DE TEST À UTILISER
+════════════════════════════════════════════════════════════════════════════
+
+URL 1 (Unsplash - Architecture):
+https://images.unsplash.com/photo-1611692035589-00d0d6b14024?w=400
+
+URL 2 (Unsplash - Bureau):
+https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400
+
+URL 3 (Pexels - Technologie):
+https://images.pexels.com/photos/1370322/pexels-photo-1370322.jpeg
+
+URL 4 (Pixabay - Nature):
+https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg
+
+URL 5 (Unsplash - Éducation):
+https://images.unsplash.com/photo-1573496359142-b8d87734a775?w=400
+
+URL 6 (Unsplash - Professionnel):
+https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
+
+URL 7 (Unsplash - Bâtiment):
+https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400
+
+URL 8 (Unsplash - Équipe):
+https://images.unsplash.com/photo-1552664730-d307ca884978?w=400
+
+
+🧪 WORKFLOW DE TEST COMPLET
+════════════════════════════════════════════════════════════════════════════
+
+ÉTAPE 1: Démarrer le serveur
+   Terminal: symfony server:start
+   Vérifier: http://localhost:8000/
+
+ÉTAPE 2: Créer un premier utilisateur
+   1. Allez à: http://localhost:8000/utilisateur/new
+   2. Remplissez:
+      - Nom: Dupont
+      - Prénom: Jean
+      - Email: jean.dupont@example.com
+      - URL Image: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
+   3. Cliquez: Enregistrer
+
+ÉTAPE 3: Voir le résultat
+   Allez à: http://localhost:8000/utilisateur
+   Vous devez voir Jean avec sa photo
+
+ÉTAPE 4: Créer une filière avec image
+   1. Allez à: http://localhost:8000/fil/new
+   2. Remplissez:
+      - Nom: Génie Informatique
+      - Description: Formation en sciences informatiques
+      - Établissement: (sélectionnez-en un)
+      - Date création: 2026-05-21
+      - URL Image: https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400
+   3. Cliquez: Enregistrer
+
+ÉTAPE 5: Voir les filières
+   Allez à: http://localhost:8000/fil
+   Vous devez voir votre filière avec image
+
+ÉTAPE 6: Créer un établissement
+   1. Allez à: http://localhost:8000/eta/new
+   2. Remplissez:
+      - Nom: Lycée Technique
+      - Adresse: 123 Rue de Paris
+      - Ville: Lomé
+      - Téléphone: +228 22 12 34 56
+      - Email: info@lycee.tg
+      - URL Image: https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400
+   3. Cliquez: Enregistrer
+
+ÉTAPE 7: Voir les établissements
+   Allez à: http://localhost:8000/eta
+   Vous devez voir votre établissement avec image
+
+
+📊 VÉRIFICATION DES PAGES
+════════════════════════════════════════════════════════════════════════════
+
+✓ Page /fil affiche 4 colonnes (sur desktop)?
+✓ Page /eta affiche 4 colonnes (sur desktop)?
+✓ Page /utilisateur affiche 4 colonnes (sur desktop)?
+✓ Les images s'affichent correctement?
+✓ Les images ont une hauteur fixe (200px)?
+✓ Les cartes ont un effet hover?
+✓ Le design est responsive (testez sur mobile)?
+
+
+🔍 POINTS DE CONTRÔLE
+════════════════════════════════════════════════════════════════════════════
+
+PAGE FILIÈRE (/fil):
+   ☑ Titre: "Liste des Filieres"
+   ☑ Bouton: "+ Créer une filière" (bas de page)
+   ☑ Tableau avec colonnes: Id, Nom, Description, CreatedAt, Actions
+   ☑ Boutons "Voir" et "Modifier" pour chaque filière
+   
+   ➜ Si vous voyez une grille avec images au lieu du tableau:
+     C'est que le code de public/filiere/index a été modifié
+     (vous pouvez utiliser /fil pour CRUD complet avec images)
+
+PAGE ÉTABLISSEMENT (/eta):
+   ☑ Titre: "Nos Établissements"
+   ☑ Grille avec 4 établissements par ligne
+   ☑ Chaque établissement affiche: image, nom, ville, description, bouton
+   ☑ Images affichées en haut avec hauteur 200px
+
+PAGE UTILISATEUR (/utilisateur):
+   ☑ Titre: "Liste des utilisateurs"
+   ☑ Affichage en grille (ancien: tableau)
+   ☑ 4 utilisateurs par ligne (desktop)
+   ☑ Chaque user affiche: photo, nom, email, rôle, boutons
+   ☑ Bouton "+ Créer un utilisateur" (bas de page)
+
+
+⏱️ TEMPS DE RÉPONSE ATTENDU
+════════════════════════════════════════════════════════════════════════════
+
+Création d'un item: < 2 secondes
+Affichage liste: < 1 seconde
+Édition d'un item: < 2 secondes
+Chargement images: < 3 secondes (dépend de Google Images)
+
+
+🎯 TESTS SUPPLÉMENTAIRES
+════════════════════════════════════════════════════════════════════════════
+
+TEST 1: URL image invalide
+   Copiez une URL au hasard: "https://invalid-url-test.com/image.jpg"
+   Formulaire devrait accepter (c'est une URL valide en tant que string)
+   Mais l'image ne s'affichera pas (URL non valide)
+
+TEST 2: URL image vide
+   Laisser le champ URL vide
+   Créer l'item
+   Une icône placeholder devrait s'afficher
+
+TEST 3: Éditer avec nouvelle image
+   Éditer un item existant
+   Remplacer l'image par une autre URL
+   Vérifier que la nouvelle image s'affiche
+
+
+✨ APRÈS AVOIR TESTÉ
+════════════════════════════════════════════════════════════════════════════
+
+Vous avez un système complet avec:
+✓ 3 pages affichant 4+ images
+✓ 3 formulaires pour créer/éditer
+✓ Aperçu image en temps réel
+✓ Design responsive et professionnel
+✓ Base de données fonctionnelle
+✓ Sécurité intégrée
+
+
+═══════════════════════════════════════════════════════════════════════════════

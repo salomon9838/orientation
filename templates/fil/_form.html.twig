@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
 
 <div class="row g-3">
 
@@ -15,29 +15,56 @@
     </div>
 
     <div class="col-md-6">
-        {{ form_label(form.createdAt, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
-        {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form.createdAt) }}
-    </div>
-
-    <div class="col-md-6">
         {{ form_label(form.etablissement, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
         {{ form_widget(form.etablissement, {'attr': {'class': 'form-select'}}) }}
         {{ form_errors(form.etablissement) }}
     </div>
 
+    {# IMAGE UPLOAD #}
+    <div class="col-md-12">
+        <label class="form-label fw-semibold">🖼️ Image de la filière</label>
+
+        {# Aperçu image existante #}
+        {% if filiere is defined and filiere.imageUrl %}
+            <div class="mb-2">
+                <p class="text-muted small mb-1">Image actuelle :</p>
+                <img src="{{ filiere.imageUrl }}" alt="Image actuelle" class="img-thumbnail" style="max-height: 150px; object-fit: cover;">
+            </div>
+        {% endif %}
+
+        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control', 'id': 'imageFileFil'}}) }}
+        {{ form_errors(form.imageFile) }}
+        <small class="text-muted">Formats : JPG, PNG, GIF, WEBP — Max 5 Mo</small>
+
+        <div id="imagePreviewFil" class="mt-2" style="display:none;">
+            <p class="text-muted small mb-1">Aperçu :</p>
+            <img id="previewImgFil" src="" alt="Aperçu" class="img-thumbnail" style="max-height: 150px; object-fit: cover;">
+        </div>
+    </div>
+
 </div>
 
 <div class="d-flex justify-content-between mt-4">
-
     <a href="{{ path('app_filieres_index') }}" class="btn btn-outline-secondary">
         ← Retour
     </a>
-
     <button class="btn btn-primary px-4">
-        {{ button_label|default('Save') }}
+        {{ button_label|default('Enregistrer') }}
     </button>
-
 </div>
 
 {{ form_end(form) }}
+
+<script>
+document.getElementById('imageFileFil').addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewImgFil').src = e.target.result;
+            document.getElementById('imagePreviewFil').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
